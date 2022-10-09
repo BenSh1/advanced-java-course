@@ -1,0 +1,21 @@
+import java.util.Random;
+
+import javax.swing.JOptionPane;
+
+public class Main {
+	public static void main(String[] args)
+	{
+
+		String msg;
+		String guess;
+		GameLogic game = new GameLogic();
+		
+		guess = JOptionPane.showInputDialog("Enter your guess: ");
+		msg = game.checkGuess(guess);
+		
+		JOptionPane.showMessageDialog(null, (msg));
+		
+		System.out.println("number : ");
+	}
+
+}
