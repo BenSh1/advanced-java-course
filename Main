@@ -6,16 +6,45 @@ public class Main {
 	public static void main(String[] args)
 	{
 
-		String msg;
+		String msg = "";
 		String guess;
+		boolean gameOn = true;
+		//String historyOfGuessing = "";
+		
 		GameLogic game = new GameLogic();
 		
-		guess = JOptionPane.showInputDialog("Enter your guess: ");
-		msg = game.checkGuess(guess);
+
+
 		
-		JOptionPane.showMessageDialog(null, (msg));
+		while(gameOn)
+		{
+			guess = JOptionPane.showInputDialog("Enter your guess: ");
+			msg = game.checkGuess(guess);
+			JOptionPane.showMessageDialog(null, (msg));
+			if(msg.endsWith("hits"))
+			{
+				//historyOfGuessing = historyOfGuessing +  ", \t" + guess; 
+				
+			}
+			
+			if (msg.startsWith("Very"))
+			{
+				guess = JOptionPane.showInputDialog("Play again? (enter Yes)");
+				if (guess.startsWith("" + 'y') || guess.startsWith("" + 'Y'))
+				{
+					game.reset();
+				}
+				else 
+				{
+					JOptionPane.showMessageDialog(null, "Thanks for playing!");
+					gameOn = false;														
+				}
+			}
+		}
+
+
 		
-		System.out.println("number : ");
+
 	}
 
 }
