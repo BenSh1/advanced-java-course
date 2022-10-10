@@ -44,18 +44,9 @@ public class GameLogic {
 		}
 		else 
 		{
-			if(this.getHistoryOfGuessing().size()>0)
-			{
-				for(i = 0; i < this.getHistoryOfGuessing().size(); i++)
-				{
-					if (this.getHistoryOfGuessing().get(i).substring(0,4).equals(guess))
-					{
-						message = "You guessed wrong already with this sequence: " + guess + " please try different sequence";
-						duplicateFlag = 1;
-					}
-				}
-			}
-			if(duplicateFlag == 0)
+			message = checkHistoryOfElements(guess);
+			
+			if(message.length() == 0)
 			{
 				this.numOfGuessing++;
 				if(this.numToGuess.contentEquals(guess))
@@ -88,6 +79,21 @@ public class GameLogic {
 		return message;
 	}
 	
+	public String checkHistoryOfElements(String guess)
+	{
+		String message = "";
+		int i;
+		for(i = 0; i < this.getHistoryOfGuessing().size(); i++)
+		{
+			if (this.getHistoryOfGuessing().get(i).substring(0,4).equals(guess))
+			{
+				message = "You guessed wrong already with this sequence: " + guess + " please try different sequence";
+				//duplicateFlag = 1;
+			}
+		}
+		
+		return message;
+	}
 	
 	public String validGuess(String guess)
 	{
