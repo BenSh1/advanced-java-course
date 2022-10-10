@@ -9,23 +9,14 @@ public class Main {
 		String msg = "";
 		String guess;
 		boolean gameOn = true;
-		//String historyOfGuessing = "";
 		
 		GameLogic game = new GameLogic();
-		
-
-
 		
 		while(gameOn)
 		{
 			guess = JOptionPane.showInputDialog("Enter your guess: ");
 			msg = game.checkGuess(guess);
 			JOptionPane.showMessageDialog(null, (msg));
-			if(msg.endsWith("hits"))
-			{
-				//historyOfGuessing = historyOfGuessing +  ", \t" + guess; 
-				
-			}
 			
 			if (msg.startsWith("Very"))
 			{
