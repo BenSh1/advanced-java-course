@@ -36,36 +36,62 @@ public class GameLogic {
 		int bulls = 0;
 		int hits = 0;
 		int i;
+		String str = "";
+		int duplicateFlag = 0;
 		
 		if(validGuess(guess).length() > 0 )
 		{
 			message = validGuess(guess); 
 		}
-
 		else 
 		{
-			this.numOfGuessing++;
-			this.historyOfGuessing.add(guess);
-			if(this.numToGuess.contentEquals(guess))
+			
+			if(this.getHistoryOfGuessing().size()>0)
 			{
-				message= "Very well, you Won! , it's took you " + this.getNumOfGuessing() + " times.";
-			}
-			else
-			{
-				for (i=0; i<CORRECTLENGTH; i++)
+				for(i = 0; i < this.getHistoryOfGuessing().size(); i++)
 				{
-					if(this.getNum().charAt(i) == guess.charAt(i))
+					System.out.println(this.getHistoryOfGuessing().get(i).substring(0,4));
+					if (this.getHistoryOfGuessing().get(i).substring(0,4).equals(guess))
 					{
-						bulls +=1;
-					}
-					else if(this.getNum().contains("" +guess.charAt(i)))
-					{
-						hits += 1;
+						System.out.println(this.getHistoryOfGuessing().get(i).substring(0,4));
+						message = "You guessed wrong already with this sequence: " + guess + " please try different sequence";
+						duplicateFlag = 1;
 					}
 				}
-				
-				message = "Your history of guesses : " + this.getHistoryOfGuessing() +"\nYour guess is "+ guess +" , has "+ bulls +" Bulls and "+ hits +" hits"; 
 			}
+			if(duplicateFlag == 0)
+			{
+				
+				this.numOfGuessing++;
+				//this.historyOfGuessing.add(guess); need to delete
+				str = str + guess;
+				if(this.numToGuess.contentEquals(guess))
+				{
+					message= "Very well, you Won! , it's took you " + this.getNumOfGuessing() + " times.";
+				}
+				else
+				{
+					for (i=0; i<CORRECTLENGTH; i++)
+					{
+						if(this.getNum().charAt(i) == guess.charAt(i))
+						{
+							bulls +=1;
+						}
+						else if(this.getNum().contains("" +guess.charAt(i)))
+						{
+							hits += 1;
+						}
+					}
+					
+					message = "Your history of guesses : " + this.getHistoryOfGuessing() 
+					+"\nYour guess is "+ guess +" , has "+ bulls +" Bulls and "+ hits +" hits";
+					
+					str = str + " bulls: " + bulls + " hits: " + hits + "\n";
+					this.historyOfGuessing.add(str);
+				}
+			}
+			
+
 			
 		}
 		
