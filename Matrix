@@ -1,0 +1,66 @@
+
+public class Matrix {
+	private int[][] matrix;
+    private final int SIZE = 10;
+    
+	public Matrix(int[][] mat ) {
+		this.matrix = mat;
+		
+	}
+	public int[][] getMatrix()
+	{
+		return this.matrix;
+	}
+	
+	public void setMatrix(int[][] m)
+	{
+		this.matrix = m;
+	}
+	
+	public int[][] nextGeneration() 
+	{
+
+		int[][] future = new int[SIZE][SIZE];
+		int i,j,l,m;
+		int aliveNeighbors;
+		for(i = 1;i<SIZE-1;i++)
+		{
+
+			for(j=1;j<SIZE-1;j++)
+			{
+
+				aliveNeighbors = 0;
+				for(l = -1;l<2;l++)
+				{
+					for(m= -1;m<2;m++)
+					{
+						aliveNeighbors += matrix[l+i][m+j];
+
+					}
+				}
+
+				//removing the cell matrix[i][j] because the cell matrix[i][j] is counted in the Neighbors of himself
+				aliveNeighbors -= matrix[i][j];
+				
+				if(matrix[i][j] == 0 && aliveNeighbors==3)
+				{
+					future[i][j] = 1;
+				}
+				else if(matrix[i][j] == 1 && (aliveNeighbors <= 1 || aliveNeighbors>= 4))
+				{
+					future[i][j] = 0;
+				}
+				/*else if(matrix[i][j] == 1 && aliveNeighbors <= 1)
+				{
+					future[i][j] = 0;
+				}*/
+				else
+					future[i][j] = matrix[i][j];
+				
+			}
+		}
+		this.matrix = future;
+		return this.matrix;
+	}
+	
+}
