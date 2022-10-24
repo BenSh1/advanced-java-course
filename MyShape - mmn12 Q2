@@ -1,0 +1,74 @@
+import javafx.scene.canvas.GraphicsContext;
+
+public abstract class MyShape implements Cloneable {
+	private double x1;
+	private double y1;
+	private double x2;
+	private double y2;
+	private String color;
+	
+	public MyShape( double x_1 , double y_1 , double x_2 , double y_2 , String c)
+	{
+		x1 = x_1;
+		y1 = y_1;
+		x2 = x_2;
+		y2 = y_2;
+		color = c;
+	}
+	
+	public double getX1()
+	{
+		return x1;
+	}
+	
+	public void setX1(double t)
+	{
+		x1 = t;
+	}
+	
+	public double getX2()
+	{
+		return x2;
+	}
+	
+	public void setX2(double t)
+	{
+		x2 = t;
+	}
+	
+	public double getY1()
+	{
+		return y1;
+	}
+	
+	public void setY1(double t)
+	{
+		y1 = t;
+	}
+	
+	
+	public double getY2()
+	{
+		return y2;
+	}
+	
+	public void setY2(double t)
+	{
+		y2 = t;
+	}
+		
+	public String getColor()
+	{
+		return color;
+	}
+	
+	public void setColor(String t)
+	{
+		color = t;
+	}
+	
+	public abstract void draw(GraphicsContext a);
+	//	public boolean equals(Object obj)
+
+	//protected abstract void drawClone(GraphicsContext gc);
+}
