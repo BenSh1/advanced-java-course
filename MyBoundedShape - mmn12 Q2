@@ -1,0 +1,26 @@
+import javafx.scene.canvas.GraphicsContext;
+
+public abstract class MyBoundedShape extends MyShape {
+	private int fillOrNot;// 0 = blank , 1 = fill
+	
+	public MyBoundedShape(double x_1 , double y_1 , double x_2 , double y_2 , String c , int f )
+	{
+		super(x_1 ,y_1 ,x_2 , y_2 , c);
+		fillOrNot = f;
+	}
+	
+	
+	public double getFillOrNot()
+	{
+		return fillOrNot;
+	}
+	
+	public void setFillOrNot(int t)
+	{
+		fillOrNot = t;
+	}
+	
+
+	public abstract void draw(GraphicsContext a); 
+
+}
