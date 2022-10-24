@@ -1,0 +1,37 @@
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
+public class MyRectangle extends MyBoundedShape{
+	
+	public MyRectangle(double x_1 , double y_1 , double x_2 , double y_2 , String c , int f )
+	{
+		super(x_1 ,y_1 ,x_2 , y_2 , c , f);
+	}
+	public void draw(GraphicsContext a)
+	{
+		/*a.setFill(Color.RED);
+		a.fillRect(super.getX1(), super.getY1(), super.getX2(), super.getY2());
+		*/
+		if (super.getColor() == "red")
+		{
+			a.setFill(Color.RED);
+			a.fillRect(super.getX1(), super.getY1(), super.getX2(), super.getY2());
+		}
+		else
+		{
+			a.setFill(Color.GREEN);
+			a.fillRect(super.getX1()+10, super.getY1()+10, super.getX2(), super.getY2());
+		}
+
+		
+	}
+	/*
+	public void drawClone(GraphicsContext a)
+	{
+		a.setFill(Color.GREEN);
+		a.fillRect(super.getX1()+10, super.getY1()+10, super.getX2(), super.getY2());
+		
+		
+	}*/
+
+}
