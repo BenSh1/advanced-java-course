@@ -1,0 +1,37 @@
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
+public class MyLine extends MyShape {
+	
+	
+	private static final GraphicsContext GraphicsContext = null;
+
+	public MyLine( double x_1 , double y_1 , double x_2 , double y_2 , String c)
+	{
+		super(x_1 ,y_1 ,x_2 , y_2 , c);
+	}
+	
+	public void draw(GraphicsContext a)
+	{
+		if (super.getColor() == "red")
+		{
+			a.setStroke(Color.RED);
+			a.strokeLine(super.getX1(), super.getY1(), super.getX2(), super.getY2());
+		}
+		else
+		{
+			a.setStroke(Color.GREEN);
+			a.strokeLine(super.getX1(), super.getY1(), super.getX2(), super.getY2());
+		}
+
+		
+	}
+	/*
+	public void drawClone(GraphicsContext a)
+	{
+		a.setStroke(Color.GREEN);
+		a.strokeLine(super.getX1()+10, super.getY1()+10, super.getX2()+ 10, super.getY2()+ 10);
+
+	}*/
+
+}
