@@ -1,0 +1,115 @@
+import java.util.ArrayList;
+import java.util.Random;
+
+import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
+
+public class ShapesController {
+
+    @FXML
+    private Canvas canv;
+    
+    private GraphicsContext gc;
+    
+	private ArrayList<MyShape> arr = new ArrayList<MyShape>();
+
+    
+    @FXML
+    public void initialize() {
+    	gc = canv.getGraphicsContext2D();
+    	MyShape temp;
+    	Random rand = new Random();
+    	String COLOR ="red";
+    	int x1 ,y1 , x2 , y2;
+    	int filled = 1;
+    	for ( int i = 0; i < 3; i++)
+    	{
+    		x1 = rand.nextInt(201);
+        	y1 = rand.nextInt(201);
+        	x2 = rand.nextInt(201);
+        	y2 = rand.nextInt(201);
+        	if(i == 0)
+        	{
+            	temp = new MyLine(x1,y1,x2,y2,COLOR);
+
+        	}
+        	else if (i == 1)
+        	{
+            	temp = new MyRectangle(x1,y1,x2,y2,COLOR, filled);
+
+        	}
+        	else
+        	{
+            	temp = new MyOval(x1,y1,x2,y2,COLOR, filled);
+        	}
+        	arr.add(temp);
+    	}
+
+
+    	
+
+    	for (int j = 0; j < arr.size(); j++) {
+        	//System.out.println(arr.get(j));
+        	if(arr.get(j) instanceof MyRectangle)
+        	{
+        		arr.get(j).draw(gc);
+        	}
+        	else if(arr.get(j) instanceof MyOval)
+        	{
+        		arr.get(j).draw(gc);
+        	}
+        	else if(arr.get(j) instanceof MyLine)
+        	{
+        		arr.get(j).draw(gc);
+        	}
+		}
+    	
+    	ArrayList<MyShape> arr2 = (ArrayList<MyShape>) arr.clone();
+    	
+    	for (int j = 0; j < arr2.size(); j++) {
+    		arr2.get(j).setColor("green");
+    		arr2.get(j).setX1(arr.get(j).getX1() + 10);
+    		arr2.get(j).setY1(arr.get(j).getY1() + 10);
+    		if(arr2.get(j) instanceof MyLine)
+    		{
+        		arr2.get(j).setX2(arr.get(j).getX2() + 10);
+        		arr2.get(j).setY2(arr.get(j).getY2() + 10);
+    		}
+    	}
+    	
+    	for (int j = 0; j < arr2.size(); j++) {
+        	if(arr2.get(j) instanceof MyRectangle)
+        	{
+        		arr2.get(j).draw(gc);
+        	}
+
+        	else if(arr2.get(j) instanceof MyOval)
+        	{
+        		arr2.get(j).draw(gc);
+        	}
+        	else if(arr2.get(j) instanceof MyLine)
+        	{
+        		arr2.get(j).draw(gc);
+        	}
+    	}
+    	
+
+    }
+    
+    
+
+
+    @FXML
+    void PressedNext(MouseEvent event) {
+    	System.out.println("sadsad");
+    	
+    }
+
+    @FXML
+    void PressedPrevious(MouseEvent event) {
+    	//System.out.println("qweqt");
+    }
+
+}
