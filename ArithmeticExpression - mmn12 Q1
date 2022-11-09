@@ -1,0 +1,43 @@
+import java.util.Random;
+
+public class  ArithmeticExpression {
+	public static void main(String[] args)
+	{
+		//Expression w,f = null;
+		/*Random rand = new Random();
+		AtomicExpression a = new AtomicExpression(rand.nextDouble());
+		System.out.println("check : " + a.calculate());*/
+		
+		Expression a = new AtomicExpression(5);
+		Expression b = new AtomicExpression(2);
+		
+		Expression c = new AdditionExpression(a,b);
+		
+		Expression d = new AdditionExpression(c,b);
+		
+		Expression e = new AdditionExpression(c,d);
+		
+		Expression f = new SubtractionExpression(c,e);
+
+
+		//CompoundExpression c = new AdditionExpression(a , b);
+		System.out.println("a : " + a.toString());
+		System.out.println("c : " + c.toString());
+		System.out.println("d : " +d.toString());
+		System.out.println("e : " +e.toString());
+		/*System.out.println("e.left : " +((CompoundExpression)e).getLExpression() + " ||||||  e.right : " 
+		+ ((CompoundExpression)e).getRExpression());*/
+		
+		System.out.println("f : " +f.toString());
+
+		
+		System.out.println("c : " + c.calculate());
+		System.out.println("d : " + d.calculate());
+		System.out.println("e : " + e.calculate());
+		System.out.println("f : " + f.calculate());
+
+		//AdditionExpression b = new AdditionExpression(w , f);
+		
+	}
+
+}
