@@ -1,0 +1,34 @@
+
+public abstract class CompoundExpression extends Expression {
+	
+	private String lExpression;
+	private String rExpression;
+	
+	public CompoundExpression(Expression k , Expression l )
+	{
+		super(k.getExpression(),  l.getExpression());
+		this.lExpression = k.getExpression();
+		this.rExpression = l.getExpression();
+	}
+	
+	protected CompoundExpression(Expression k , Expression l , char s )
+	{
+		super( k.getExpression() + s, l.getExpression());
+		this.lExpression = k.getExpression();
+		this.rExpression = l.getExpression();
+	}
+	
+	public String getLExpression()
+	{
+		return lExpression;
+	}
+	public String getRExpression()
+	{
+		return rExpression;
+	}
+
+	
+	public abstract double calculate();
+	
+
+}
