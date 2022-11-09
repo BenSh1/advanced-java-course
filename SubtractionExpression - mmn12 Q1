@@ -1,0 +1,30 @@
+
+public class SubtractionExpression extends CompoundExpression  {
+	
+	private double lValue;
+	private double rValue;
+	
+	public SubtractionExpression(Expression a , Expression b)
+	{
+		super(a,b , '-');
+		lValue = a.calculate();
+		rValue = b.calculate();
+		
+		
+		//super(a,b);
+	}
+	
+	public double calculate()
+	{
+		/*double fNum = Double.parseDouble(this.getLExpression()); 
+		double lNum = Double.parseDouble(this.getRExpression()); 
+
+		return  fNum -lNum;*/
+		return lValue - rValue;
+	}
+	
+	public String toString()
+	{
+		return "The arithmetic expression is: " + super.getExpression(); 	
+	}
+}
