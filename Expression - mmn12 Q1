@@ -1,0 +1,30 @@
+
+public abstract class Expression {
+	private String expressionOfNums;
+
+	public Expression(String s1 , String s2)
+	{
+		this.expressionOfNums = s1 + " " + s2 ;
+	}
+
+	public String getExpression()
+	{
+		return expressionOfNums;
+	}
+	
+	public abstract double calculate();
+	
+	/*
+	public boolean equals(Object obj)
+	{
+
+		if (obj != null || !(obj instanceof Expression) )
+		{
+			return false;
+		}
+		
+		return this.getNum() == ((Expression)obj).getNum();
+	}*/ 
+	
+
+}
