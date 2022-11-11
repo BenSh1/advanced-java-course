@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class  ArithmeticExpression {
@@ -37,6 +38,76 @@ public class  ArithmeticExpression {
 		System.out.println("f : " + f.calculate());
 
 		//AdditionExpression b = new AdditionExpression(w , f);
+    	Random rand = new Random();
+		Expression temp1 = null;
+		Expression temp2;
+
+
+		ArrayList<Expression> arr = new ArrayList<Expression>();
+		int i = 0;
+		int n;
+		double num1;
+
+		final int SIZE = 5;
+		int numberOfOperands;
+
+		double nums[] = new double[SIZE];
+		int m;
+		while (i < 10)
+		{
+			n = rand.nextInt(2);
+			if (n == 0)
+			{
+				num1 = 100 * rand.nextDouble();
+				temp1 = new AtomicExpression(num1);
+			}
+			else if (n == 1)
+			{
+				
+				numberOfOperands = 1 + rand.nextInt(5);
+				
+				for(int k = 0; k < numberOfOperands;k++)
+				{
+					nums[k] = 100 * rand.nextDouble();
+					
+				}	
+				temp1 =new AtomicExpression(nums[0]);
+
+				
+				for(int k = 1; k < numberOfOperands;k++)
+				{
+					temp2 =new AtomicExpression(nums[k]);
+					m = rand.nextInt(2);
+					if(m == 0)
+						temp1 = new AdditionExpression(temp1 , temp2);
+					else
+						temp1 = new SubtractionExpression(temp1 , temp2);
+
+				}	
+			}
+			/*
+			else 
+			{
+				
+				num1 = 100 * rand.nextDouble();
+				num2 = 100 * rand.nextDouble();
+				temp1 = new AtomicExpression(num1);
+				temp2 = new AtomicExpression(num2);
+				temp3 = new SubtractionExpression(temp1 , temp2);
+			}*/
+			
+			arr.add(temp1);
+			i++;
+
+		}
+
+		i = 0;
+		while (i < 10)
+		{
+			System.out.println(arr.get(i));
+			System.out.println("calculate : " + arr.get(i).calculate());
+			i++;
+		}
 		
 	}
 
