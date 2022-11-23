@@ -4,13 +4,13 @@ import javafx.scene.paint.Color;
 public class MyLine extends MyShape {
 	
 	
-	private static final GraphicsContext GraphicsContext = null;
-
+	//Constructor that gets 2 coordinates of 2 points and color by string variable 
 	public MyLine( double x_1 , double y_1 , double x_2 , double y_2 , String c)
 	{
 		super(x_1 ,y_1 ,x_2 , y_2 , c);
 	}
 	
+	//draw the red shapes and the green shape according to the instruction
 	public void draw(GraphicsContext a)
 	{
 		if (super.getColor() == "red")
@@ -26,12 +26,22 @@ public class MyLine extends MyShape {
 
 		
 	}
-	/*
-	public void drawClone(GraphicsContext a)
+	
+	// length compare by line length formula 
+	private double length() {
+		return Math.sqrt(Math.pow(this.getX1()-this.getX2(),2)
+				+ Math.pow(this.getY1()-this.getY1(), 2));
+	}
+	
+	// equals compare length of lines and color
+	public boolean equals(MyLine other)
 	{
-		a.setStroke(Color.GREEN);
-		a.strokeLine(super.getX1()+10, super.getY1()+10, super.getX2()+ 10, super.getY2()+ 10);
+		double d1;
+		double d2;
+		d1 = this.length();
+		d2 = other.length();
+		return d1 == d2 && this.getColor().compareTo(other.getColor()) == 0;
+	}
 
-	}*/
 
 }
