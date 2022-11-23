@@ -1,30 +1,16 @@
 
 public abstract class Expression {
-	private String expressionOfNums;
-
-	public Expression(String s1 , String s2)
-	{
-		this.expressionOfNums = s1 + " " + s2 ;
-	}
-
-	public String getExpression()
-	{
-		return expressionOfNums;
-	}
 	
 	public abstract double calculate();
-	
-	/*
-	public boolean equals(Object obj)
+	// override the equals of object
+	public boolean equals(Object a) 
 	{
-
-		if (obj != null || !(obj instanceof Expression) )
-		{
+		if(a == null || !(a instanceof Expression)) {
 			return false;
 		}
 		
-		return this.getNum() == ((Expression)obj).getNum();
-	}*/ 
+		return this.calculate()== ((Expression)a).calculate();
+	}
 	
-
+	
 }
