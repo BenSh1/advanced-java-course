@@ -3,24 +3,31 @@ import javafx.scene.canvas.GraphicsContext;
 public abstract class MyBoundedShape extends MyShape {
 	private int fillOrNot;// 0 = blank , 1 = fill
 	
+	/*Constructor that gets 2 coordinates of 2 points and color by string variable */
 	public MyBoundedShape(double x_1 , double y_1 , double x_2 , double y_2 , String c , int f )
 	{
 		super(x_1 ,y_1 ,x_2 , y_2 , c);
 		fillOrNot = f;
 	}
-	
-	
-	public double getFillOrNot()
+
+	//Getter for the integer number that indicate if the shape fill with color or blank
+	public int getFillOrNot()
 	{
 		return fillOrNot;
 	}
 	
+	//Setter for the integer number that indicate if the shape fill with color or blank
 	public void setFillOrNot(int t)
 	{
 		fillOrNot = t;
 	}
 	
-
 	public abstract void draw(GraphicsContext a); 
-
+	
+	// equals function, two shapes are equal if and only if the two coordinates of the two points are equal
+	public boolean equals(MyBoundedShape other) {
+		return this.getX1() == other.getX1()  &&  this.getY1() == other.getY1() &&
+				this.getX2() == other.getX2()  &&  this.getY2() == other.getY2(); 
+	}
+	
 }
