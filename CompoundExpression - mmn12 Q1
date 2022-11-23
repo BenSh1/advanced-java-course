@@ -1,34 +1,25 @@
 
+
 public abstract class CompoundExpression extends Expression {
-	
-	private String lExpression;
-	private String rExpression;
-	
-	public CompoundExpression(Expression k , Expression l )
+	protected Expression firstExp;
+	protected Expression secondExp;
+	//constructor that getting two expression variable and initialize them
+	public CompoundExpression(Expression a , Expression b ) 
 	{
-		super(k.getExpression(),  l.getExpression());
-		this.lExpression = k.getExpression();
-		this.rExpression = l.getExpression();
-	}
-	
-	protected CompoundExpression(Expression k , Expression l , char s )
-	{
-		super( k.getExpression() + s, l.getExpression());
-		this.lExpression = k.getExpression();
-		this.rExpression = l.getExpression();
-	}
-	
-	public String getLExpression()
-	{
-		return lExpression;
-	}
-	public String getRExpression()
-	{
-		return rExpression;
+		if(a instanceof AtomicExpression ) {
+			firstExp = new AtomicExpression(((AtomicExpression)a).getNum()); 
+		}
+		else {
+			firstExp = a;
+		}
+		if(b instanceof AtomicExpression ) {
+			secondExp = new AtomicExpression(((AtomicExpression)b).getNum()); 
+		}
+		else {
+			secondExp = b;
+		}
 	}
 
-	
 	public abstract double calculate();
 	
-
 }
