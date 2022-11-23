@@ -1,21 +1,24 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+import java.awt.*;
+
+
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 
-public class ShapesController {
+public class ShapesController  {
 
     @FXML
     private Canvas canv;
-    
-    private GraphicsContext gc;
-    
-	private ArrayList<MyShape> arr = new ArrayList<MyShape>();
 
-    
+    private GraphicsContext gc;
+
+	private ArrayList<MyShape> arr;
+	private ArrayList<MyShape> arrClone;
+	
     @FXML
     public void initialize() {
     	gc = canv.getGraphicsContext2D();
@@ -24,92 +27,77 @@ public class ShapesController {
     	String COLOR ="red";
     	int x1 ,y1 , x2 , y2;
     	int filled = 1;
-    	for ( int i = 0; i < 3; i++)
+    	
+    	arr =  new ArrayList<MyShape>();
+    	arrClone = new ArrayList<MyShape>();
+    	
+    	//create the first six red shapes
+    	for ( int i = 0; i < 6; i++)
     	{
     		x1 = rand.nextInt(201);
         	y1 = rand.nextInt(201);
         	x2 = rand.nextInt(201);
         	y2 = rand.nextInt(201);
-        	if(i == 0)
-        	{
+        	//if the variable i is less or equal to 1 , it's indicate that the program will create line 
+        	if(i <= 1){
             	temp = new MyLine(x1,y1,x2,y2,COLOR);
-
         	}
-        	else if (i == 1)
-        	{
+        	//if the variable i is between 2 to 3(included) , it's indicate that the program will create rectangle 
+        	else if (i >=2 && i <= 3){
             	temp = new MyRectangle(x1,y1,x2,y2,COLOR, filled);
-
         	}
-        	else
-        	{
+        	//if the variable i is more than 3 , it's indicate that the program will create oval 
+        	else{
             	temp = new MyOval(x1,y1,x2,y2,COLOR, filled);
         	}
         	arr.add(temp);
     	}
-
-
+    	// clone the array and add to the cloned array
+		for(int i  = 0 ; i < arr.size() ; i++) {
+			try {
+				arrClone.add((MyShape) arr.get(i).clone());
+			} catch (CloneNotSupportedException e) {
+				// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+			// TODO Auto-generated catch block
+		}
+		//create the clone array according to the instruction
+    	createArrayClone();
     	
-
+    	/*draw the six shapes in the color Red 
+    	and the six shapes in the color green in according to the instruction*/
+		paint();
+    }
+	//draw the six red shapes and the six green shapes of clone
+    public void paint() {
     	for (int j = 0; j < arr.size(); j++) {
-        	//System.out.println(arr.get(j));
-        	if(arr.get(j) instanceof MyRectangle)
-        	{
-        		arr.get(j).draw(gc);
-        	}
-        	else if(arr.get(j) instanceof MyOval)
-        	{
-        		arr.get(j).draw(gc);
-        	}
-        	else if(arr.get(j) instanceof MyLine)
-        	{
-        		arr.get(j).draw(gc);
-        	}
+    		arr.get(j).draw(gc);
+    		arrClone.get(j).draw(gc);
 		}
     	
-    	ArrayList<MyShape> arr2 = (ArrayList<MyShape>) arr.clone();
-    	
-    	for (int j = 0; j < arr2.size(); j++) {
-    		arr2.get(j).setColor("green");
-    		arr2.get(j).setX1(arr.get(j).getX1() + 10);
-    		arr2.get(j).setY1(arr.get(j).getY1() + 10);
-    		if(arr2.get(j) instanceof MyLine)
+    }
+
+	//create the second six green shapes according to the instruction
+    private void createArrayClone() {
+    	for (int j = 0; j < arrClone.size(); j++) {
+
+    		arrClone.get(j).setColor("green");//change the color to green for every shape of the clone
+    		arrClone.get(j).setX1(arr.get(j).getX1() + 10);//change the x coordinate 
+    		arrClone.get(j).setY1(arr.get(j).getY1() + 10);//change the y coordinate 
+    		/*checking if the shape is line ,
+    		if it's true then change also the point of the second edge of the line */
+    		if(arrClone.get(j) instanceof MyLine)
     		{
-        		arr2.get(j).setX2(arr.get(j).getX2() + 10);
-        		arr2.get(j).setY2(arr.get(j).getY2() + 10);
+        		arrClone.get(j).setX2(arr.get(j).getX2() + 10);
+        		arrClone.get(j).setY2(arr.get(j).getY2() + 10);
+    		}
+    		/*checking if the shape is MyBoundedShape ,
+    		if it's true then change also the attribute 'fillOrNot' to be 1 - for fill with color*/
+    		if(arrClone.get(j) instanceof MyBoundedShape)
+    		{
+    			((MyBoundedShape)arrClone.get(j)).setFillOrNot(0);
     		}
     	}
-    	
-    	for (int j = 0; j < arr2.size(); j++) {
-        	if(arr2.get(j) instanceof MyRectangle)
-        	{
-        		arr2.get(j).draw(gc);
-        	}
-
-        	else if(arr2.get(j) instanceof MyOval)
-        	{
-        		arr2.get(j).draw(gc);
-        	}
-        	else if(arr2.get(j) instanceof MyLine)
-        	{
-        		arr2.get(j).draw(gc);
-        	}
-    	}
-    	
-
     }
-    
-    
-
-
-    @FXML
-    void PressedNext(MouseEvent event) {
-    	System.out.println("sadsad");
-    	
-    }
-
-    @FXML
-    void PressedPrevious(MouseEvent event) {
-    	//System.out.println("qweqt");
-    }
-
 }
