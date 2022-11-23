@@ -1,42 +1,21 @@
 
-public class AtomicExpression extends Expression {
-	
-	//private double num;
-	//private String num;
-	//private String blankString = "";
-	public AtomicExpression(double n)
-	{
-		super(n+ "", "");
+public class AtomicExpression extends Expression{
+	private double num;
+	//constructor that getting one variable of double type 
+	public AtomicExpression(double n){	
+		this.num = n;
 	}
-	/*
-	public double getNum()
-	{
+	//getter of the variable num
+	public double getNum() {
 		return this.num;
-	}*/
-
-	
-	
-	public String toString()
-	{
-		return "The arithmetic expression is: " + this.calculate();
 	}
-	/*public double calculate()
-	{
-		return this.getNum();
-	}*/
-	public double calculate()
-	{
-		double num = Double.parseDouble(this.getExpression()); 
+	//calculate the number ,the expression is containing one number therefor return the value of the number
+	public double calculate(){		
 		return num;
 	}
-	/*
-	public boolean equals(Object obj)
-	{
-		if (obj != null || !(obj instanceof AtomicExpression) )
-		{
-			return false;
-		}
-		
-		return this.num == ((AtomicExpression) obj).getNum(); 
-	}*/
+	//override the toString method
+	public String toString(){
+		return "" + this.getNum();
+	}
+
 }
