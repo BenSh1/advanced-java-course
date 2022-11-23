@@ -1,30 +1,36 @@
 
-public class SubtractionExpression extends CompoundExpression  {
+public class SubtractionExpression extends CompoundExpression {
 	
-	private double lValue;
-	private double rValue;
-	
-	public SubtractionExpression(Expression a , Expression b)
-	{
-		super(a,b , '-');
-		lValue = a.calculate();
-		rValue = b.calculate();
-		
-		
-		//super(a,b);
+	//constructor that getting two expression variable 
+	public SubtractionExpression(Expression a , Expression b ) {
+		super(a,b);
 	}
-	
-	public double calculate()
-	{
-		/*double fNum = Double.parseDouble(this.getLExpression()); 
-		double lNum = Double.parseDouble(this.getRExpression()); 
-
-		return  fNum -lNum;*/
-		return lValue - rValue;
+	//calculate the expression and return the value of it
+	public double calculate() {
+		return firstExp.calculate() - secondExp.calculate();
 	}
-	
-	public String toString()
+	//override the toString method
+	public String toString() 
 	{
-		return "The arithmetic expression is: " + super.getExpression(); 	
+		String firstString; 
+		String secondeString;
+		//checking if the first expression is containing more than one atomic number 
+		if(firstExp instanceof CompoundExpression) {
+			firstString = ((CompoundExpression)firstExp).toString(); 
+		}
+		else 
+		{
+			firstString = ((AtomicExpression)firstExp).toString(); 
+		}
+		
+		//checking if the second expression is containing more than one atomic number 
+		if(secondExp instanceof CompoundExpression) {
+			secondeString = ((CompoundExpression)secondExp).toString(); 
+		}
+		else 
+		{
+			secondeString = ((AtomicExpression)secondExp).toString(); 
+		}
+		return "(" + firstString + " - " + secondeString + ")"; 
 	}
 }
