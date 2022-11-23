@@ -3,15 +3,16 @@ import javafx.scene.paint.Color;
 
 public class MyRectangle extends MyBoundedShape{
 	
+	/*Constructor that gets 2 coordinates of 2 points , color by string variable 
+	and integer number that indicate if the shape fill with color or blank*/
 	public MyRectangle(double x_1 , double y_1 , double x_2 , double y_2 , String c , int f )
 	{
 		super(x_1 ,y_1 ,x_2 , y_2 , c , f);
 	}
+	
+	//draw the red shapes and the green shape according to the instruction
 	public void draw(GraphicsContext a)
 	{
-		/*a.setFill(Color.RED);
-		a.fillRect(super.getX1(), super.getY1(), super.getX2(), super.getY2());
-		*/
 		if (super.getColor() == "red")
 		{
 			a.setFill(Color.RED);
@@ -20,18 +21,9 @@ public class MyRectangle extends MyBoundedShape{
 		else
 		{
 			a.setFill(Color.GREEN);
-			a.fillRect(super.getX1()+10, super.getY1()+10, super.getX2(), super.getY2());
+			a.strokeRect(super.getX1()+10, super.getY1()+10, super.getX2(), super.getY2());
 		}
-
 		
 	}
-	/*
-	public void drawClone(GraphicsContext a)
-	{
-		a.setFill(Color.GREEN);
-		a.fillRect(super.getX1()+10, super.getY1()+10, super.getX2(), super.getY2());
-		
-		
-	}*/
 
 }
