@@ -7,6 +7,8 @@ public abstract class MyShape implements Cloneable {
 	private double y2;
 	private String color;
 	
+	/*Constructor that gets 2 coordinates of 2 points and color by string variable 
+	and initializes the attributes with them*/
 	public MyShape( double x_1 , double y_1 , double x_2 , double y_2 , String c)
 	{
 		x1 = x_1;
@@ -15,60 +17,75 @@ public abstract class MyShape implements Cloneable {
 		y2 = y_2;
 		color = c;
 	}
-	
+	//Getter for the x coordinate of the first point
 	public double getX1()
 	{
 		return x1;
 	}
-	
+	//Setter for the x coordinate of the first point
 	public void setX1(double t)
 	{
 		x1 = t;
 	}
-	
+	//Getter for the x coordinate of the second point
 	public double getX2()
 	{
 		return x2;
 	}
-	
+	//Setter for the x coordinate of the second point
 	public void setX2(double t)
 	{
 		x2 = t;
 	}
-	
+	//Getter for the y coordinate of the first point
 	public double getY1()
 	{
 		return y1;
 	}
-	
+	//Setter for the y coordinate of the first point
 	public void setY1(double t)
 	{
 		y1 = t;
 	}
-	
-	
+	//Getter for the y coordinate of the second point
 	public double getY2()
 	{
 		return y2;
 	}
-	
+	//Setter for the y coordinate of the second point
 	public void setY2(double t)
 	{
 		y2 = t;
 	}
-		
+	//Getter for the color
 	public String getColor()
 	{
 		return color;
 	}
-	
+	//Setter for the color
 	public void setColor(String t)
 	{
 		color = t;
 	}
 	
 	public abstract void draw(GraphicsContext a);
-	//	public boolean equals(Object obj)
+	
+	//override equal , two shapes are equal if and only if the two coordinates of the two points are equal
+	public boolean equals(Object obj)
+	{
+		
+		if (obj != null || !(obj instanceof MyShape) )
+		{
+			return false;
+		}
 
-	//protected abstract void drawClone(GraphicsContext gc);
+		return this.getX1() == ((MyShape)obj).getX1() && this.getY1() == ((MyShape)obj).getY1() && 
+				this.getX2() == ((MyShape)obj).getX2()&& this.getY2() == ((MyShape)obj).getY2() && 
+				this.getColor().compareTo(((MyShape)obj).getColor()) == 0;
+
+	}
+	//for the clone option  
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 }
