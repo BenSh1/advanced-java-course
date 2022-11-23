@@ -1,39 +1,33 @@
 
 public class AdditionExpression extends CompoundExpression  {
-	private final char SIGN = '+';
-	private String lExp;
-	private String rExp;
-	private String expWithSign;
 	
-	
-	private double lValue;
-	private double rValue;
-	
-	public AdditionExpression(Expression a , Expression b)
-	{
-		super(a,b , '+');
-		lValue = a.calculate();
-		rValue = b.calculate();
-		
-		/*lExp = a.getExpression();
-		rExp = b.getExpression();*/
-		//expWithSign = lExp + " + " + rExp;
+	//constructor that getting two expression variable 
+	public AdditionExpression(Expression a , Expression b){
+		super(a , b);
 	}
-
-	public double calculate()
-	{
-		//System.out.println(this.getFExpression());
-		/*
-		double fNum = Double.parseDouble(this.getLExpression()); 
-		double lNum = Double.parseDouble(this.getRExpression()); 
-
-		return  fNum +lNum;*/
-		
-		return lValue + rValue;
+	//calculate the expression and return the value of it
+	public double calculate(){
+		return firstExp.calculate() + secondExp.calculate();
 	}
-	
+	//override the toString method
 	public String toString()
 	{
-		return "The arithmetic expression is: " + super.getExpression(); 
+		String firstString; 
+		String secondeString;
+		//checking if the first expression is containing more than one atomic number 
+		if(firstExp instanceof CompoundExpression) {
+			firstString = ((CompoundExpression)firstExp).toString(); 
+		}
+		else {
+			firstString = ((AtomicExpression)firstExp).toString(); 
+		}
+		//checking if the second expression is containing more than one atomic number 
+		if(secondExp instanceof CompoundExpression) {
+			secondeString = ((CompoundExpression)secondExp).toString(); 
+		}
+		else {
+			secondeString = ((AtomicExpression)secondExp).toString(); 
+		}
+		return  firstString+ " + " +secondeString; 
 	}
 }
