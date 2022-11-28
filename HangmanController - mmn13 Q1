@@ -130,6 +130,7 @@ public class HangmanController {
         	rightLetters.setText(revealWord);
         	
         	guesseArray.add(letters.getValue());
+
         	String stringOfGuesses = "";
         	for(int i = 0 ; i < guesseArray.size() ;i++)
         	{
@@ -169,6 +170,8 @@ public class HangmanController {
     	
     	rightLetters.setText(revealWord);
     	guesses.setText('-' + "");
+    	
+    	guesseArray.clear();
     	
 
     }
