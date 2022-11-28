@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -16,9 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.canvas.GraphicsContext;
 
 public class HangmanController {
-
-    @FXML
-    private Button btn;
 
     @FXML
     private Canvas canv;
@@ -33,14 +32,14 @@ public class HangmanController {
     private Label rightLetters;
     
 	private GraphicsContext gc;
-	
-	//private char[] guesse;
 
 	private ArrayList<Character> guesseArray;
 	private String randomWord;
 	private String revealWord;
+	private int numOfGuesses;
 	
 	private ArrayList<String> hangmanLives = new ArrayList<String>(Arrays.asList(
+			"\n"+
 			"			 +------+\n"
 			+ "			 |	|\n"
 			+ "			 	|\n"
@@ -48,6 +47,7 @@ public class HangmanController {
 			+ "			 	|\n"
 			+ "			 	|\n"
 			+ "			==========\n",
+			"\n"+
 			"			 +------+\n"
 			+ "			 |	|\n"
 			+ "			 O	|\n"
@@ -56,6 +56,7 @@ public class HangmanController {
 			+ "			 	|\n"
 			+ "			==========\n"
 					,
+			"\n"+
 			"			 +------+\n"
 			+ "			 |	|\n"
 			+ "			 O	|\n"
@@ -64,6 +65,7 @@ public class HangmanController {
 			+ "			 	|\n"
 			+ "			==========\n"
 					,
+			"\n"+
 			"			 +------+\n"
 			+ "			 |	|\n"
 			+ "			 O	|\n"
@@ -72,6 +74,7 @@ public class HangmanController {
 			+ "			 	|\n"
 			+ "			==========\n"
 					,
+			"\n"+
 			"			 +------+\n"
 			+ "			 |	|\n"
 			+ "			 O	|\n"
@@ -80,6 +83,7 @@ public class HangmanController {
 			+ "			 	|\n"
 			+ "			==========\n"
 					,
+			"\n"+
 			"			 +------+\n"
 			+ "			 |	|\n"
 			+ "			 O	|\n"
@@ -90,16 +94,122 @@ public class HangmanController {
 			
 			));
 
+	
 
 	@FXML
 	public void initialize() {
-		Random rand = new Random();
 		gc = canv.getGraphicsContext2D();
-		List<String> words = new ArrayList<String>();
-		String[] wordsLine;
-		//String underscoreTimes = new String();
-		System.out.println(hangmanLives);
+		numOfGuesses = 0;
+		randomWord = createSecretWord();
+	    System.out.println("randomWord : " + randomWord);
+
+		gc.fillText(hangmanLives.get(numOfGuesses), 0, 0);
+		
 		revealWord = new String();
+
+    	for(int j = 0; j < randomWord.length();j++)
+    	{
+    		revealWord+= '_';
+    	}
+    	
+    	rightLetters.setText(revealWord);
+		
+		guesseArray = new ArrayList<Character>();
+		initCombobox();
+	}
+
+    @FXML
+    void guessPressed(ActionEvent event) {
+    	if (numOfGuesses > 4)
+		{
+			JOptionPane.showMessageDialog(null, "You lost!");
+		}
+    	else
+    	{
+        	revealWord = drawLetterInWord(randomWord , letters.getValue(),revealWord);
+        	rightLetters.setText(revealWord);
+        	
+        	guesseArray.add(letters.getValue());
+        	String stringOfGuesses = "";
+        	for(int i = 0 ; i < guesseArray.size() ;i++)
+        	{
+        		stringOfGuesses += " " +  guesseArray.get(i);
+        	}
+        			
+    		guesses.setText(stringOfGuesses);
+    		
+    		gc.fillText(hangmanLives.get(numOfGuesses), 0, 0);
+    		
+    	}
+    
+		/*String msg;
+
+		if(revealWord.compareTo(randomWord) == 0)
+		{
+			msg = JOptionPane.showInputDialog("You Won! , Would you like to start over?")
+		}
+		if (msg == "yes" || msg == "Yes" )
+		{
+			
+		}*/
+    }
+    
+    @FXML
+    void resetPressed(ActionEvent event) {
+		numOfGuesses = 0;
+    	gc.clearRect(0,0 , 460, 120);
+		gc.fillText(hangmanLives.get(numOfGuesses), 0, 0);
+		randomWord = createSecretWord();
+	    System.out.println("randomWord : " + randomWord);
+	    revealWord = "";
+    	for(int j = 0; j < randomWord.length();j++)
+    	{
+    		revealWord+= '_';
+    	}
+    	
+    	rightLetters.setText(revealWord);
+    	guesses.setText('-' + "");
+    	
+
+    }
+
+	private String drawLetterInWord(String secretWord , char letter , String revealWord)
+	{
+		int foundLetterFlag = 0; // 0 = not found a signal letter  , 1 = found one letter
+
+    	for(int i = 0; i < secretWord.length();i++)
+    	{
+    		if(secretWord.charAt(i) == letter)
+    		{
+    			foundLetterFlag = 1;
+    			revealWord = revealWord.substring(0,i) + letter + revealWord.substring(i+1,secretWord.length()) ;
+    		}
+    	}
+    	if ( foundLetterFlag == 0)
+    	{
+    		numOfGuesses += 1;
+    	}
+    	return revealWord;
+	} 
+   
+	public void initCombobox() {
+    	final int LETTERS  = 26 ;
+    	char letter = 'a';
+    	for(int i = 0; i< LETTERS;i++)
+    	{
+    		letters.getItems().add(letter);
+    		letter += 1;
+    	}
+    	letters.setValue('a');
+	}
+	
+    private String createSecretWord()
+    {
+		Random rand = new Random();
+    	List<String> words = new ArrayList<String>();
+		String[] wordsLine;
+		String secretWord = new String();
+
 		try
 		{
 			FileReader fr = new FileReader("words.txt");
@@ -120,76 +230,11 @@ public class HangmanController {
 			System.out.println("Error");
 		}
 
-
-	    randomWord = words.get(rand.nextInt(words.size()));
-	    System.out.println("randomWord : " + randomWord);
-	    
-    	for(int j = 0; j < randomWord.length();j++)
-    	{
-    		revealWord+= '_';
-    	}
-    	System.out.println(revealWord);
-		//System.out.println(wordsStr);
-	    /*for ( int i = 0;i<randomWord.length();i++)
-	    {
-	    	underscoreTimes += "_";
-	    }*/
-	    
-    	rightLetters.setText(revealWord);
-		
-		guesseArray = new ArrayList<Character>();
-		initCombobox();
-		
-
-	}
-	
-
-	private String drawLetterInWord(String secretWord , char letter , String revealWord)
-	{
-    	for(int i = 0; i < secretWord.length();i++)
-    	{
-    		if(secretWord.charAt(i) == letter)
-    		{
-    			revealWord = revealWord.substring(0,i) + letter + revealWord.substring(i+1,secretWord.length()) ;
-    		}
-    	}
-    	return revealWord;
-	}
-	
-	
-    @FXML
-    void btnPressed(ActionEvent event) {
-    	
-    	revealWord = drawLetterInWord(randomWord , letters.getValue(),revealWord);
-    	rightLetters.setText(revealWord);
-    	
-    	guesseArray.add(letters.getValue());
-    	String stringOfGuesses = "";
-    	for(int i = 0 ; i < guesseArray.size() ;i++)
-    	{
-    		stringOfGuesses += " " +  guesseArray.get(i);
-    	}
-    			
-		guesses.setText(stringOfGuesses);
-		
-		
-		
-		
-		/*reset
-		 * if(revealWord.equals(randomWord))
-		{
-			
-		}*/
+		secretWord = words.get(rand.nextInt(words.size()));
+		return secretWord;
     }
+    
 	
-	public void initCombobox() {
-    	final int LETTERS  = 26 ;
-    	char letter = 'a';
-    	for(int i = 0; i< LETTERS;i++)
-    	{
-    		letters.getItems().add(letter);
-    		letter += 1;
-    	}
-    	letters.setValue('a');
-	}
+
+	
 }
