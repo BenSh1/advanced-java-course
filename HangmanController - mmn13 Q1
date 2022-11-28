@@ -39,57 +39,61 @@ public class HangmanController {
 	private int numOfGuesses;
 	
 	private ArrayList<String> hangmanLives = new ArrayList<String>(Arrays.asList(
-			"\n"+
-			"			 +------+\n"
+			"\n"
+			+"			 +------+\n"
 			+ "			 |	|\n"
 			+ "			 	|\n"
 			+ "			 	|\n"
 			+ "			 	|\n"
 			+ "			 	|\n"
 			+ "			==========\n",
-			"\n"+
-			"			 +------+\n"
+			"\n"
+			+"			 +------+\n"
 			+ "			 |	|\n"
-			+ "			 O	|\n"
-			+ "			 |	|\n"
-			+ "				|\n"
+			+ "			O	|\n"
 			+ "			 	|\n"
-			+ "			==========\n"
-					,
-			"\n"+
-			"			 +------+\n"
-			+ "			 |	|\n"
-			+ "			 O	|\n"
-			+ "			-|	|\n"
-			+ "				|\n"
 			+ "			 	|\n"
-			+ "			==========\n"
-					,
-			"\n"+
-			"			 +------+\n"
-			+ "			 |	|\n"
-			+ "			 O	|\n"
-			+ "			-|-	|\n"
-			+ "				|\n"
 			+ "			 	|\n"
-			+ "			==========\n"
-					,
-			"\n"+
-			"			 +------+\n"
-			+ "			 |	|\n"
-			+ "			 O	|\n"
-			+ "			-|-	|\n"
-			+ "			/	|\n"
-			+ "			 	|\n"
-			+ "			==========\n"
-					,
-			"\n"+
-			"			 +------+\n"
-			+ "			 |	|\n"
-			+ "			 O	|\n"
-			+ "			-|-	|\n"
-			+ "			/ \\	|\n"
-			+ "			 	|\n"
+			+ "			==========\n",
+			"\n"
+			+"			 +------+\n"
+			+ "			 |	| \n"
+			+ "			O	| \n"
+			+ "		     	 |	 \n"
+			+ "			 	| \n"
+			+ "			 	| \n"
+			+ "			==========\n",
+			"\n"
+			+"			 +------+\n"
+			+ "			 |	| \n"
+			+ "			O	| \n"
+			+ "		      --|	 \n"
+			+ "			 	| \n"
+			+ "			 	| \n"
+			+ "			==========\n",
+			"\n"
+			+"			 +------+\n"
+			+ "			 |	| \n"
+			+ "			O	| \n"
+			+ "		      --|-- \n"
+			+ "			     \n"
+			+ "			 	| \n"
+			+ "			==========\n",
+			"\n"
+			+"			 +------+\n"
+			+ "			 |	| \n"
+			+ "			O	| \n"
+			+ "		      --|-- \n"
+			+ "			/    \n"
+			+ "			 	| \n"
+			+ "			==========\n",
+			"\n"
+			+"			 +------+\n"
+			+ "			 |	| \n"
+			+ "			O	| \n"
+			+ "		      --|-- \n"
+			+ "			/ \\   \n"
+			+ "			 	| \n"
 			+ "			==========\n"
 			
 			));
@@ -120,7 +124,7 @@ public class HangmanController {
 
     @FXML
     void guessPressed(ActionEvent event) {
-    	if (numOfGuesses > 4)
+    	if (numOfGuesses > 5)
 		{
 			JOptionPane.showMessageDialog(null, "You lost!");
 		}
@@ -128,6 +132,10 @@ public class HangmanController {
     	{
         	revealWord = drawLetterInWord(randomWord , letters.getValue(),revealWord);
         	rightLetters.setText(revealWord);
+    		if(revealWord.compareTo(randomWord) == 0)
+    		{
+    			JOptionPane.showMessageDialog(null, "You Won!");
+    		}
         	
         	guesseArray.add(letters.getValue());
 
@@ -141,6 +149,9 @@ public class HangmanController {
     		
     		gc.fillText(hangmanLives.get(numOfGuesses), 0, 0);
     		
+
+ 
+
     	}
     
 		/*String msg;
