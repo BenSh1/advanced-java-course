@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -130,26 +131,36 @@ public class HangmanController {
 		}
     	else
     	{
-        	revealWord = drawLetterInWord(randomWord , letters.getValue(),revealWord);
-        	rightLetters.setText(revealWord);
-    		if(revealWord.compareTo(randomWord) == 0)
+    		if( !(revealWord.compareTo(randomWord) == 0))
     		{
-    			JOptionPane.showMessageDialog(null, "You Won!");
+    	       	revealWord = drawLetterInWord(randomWord , letters.getValue(),revealWord);
+            	rightLetters.setText(revealWord);
+        		if(revealWord.compareTo(randomWord) == 0)
+        		{
+        			JOptionPane.showMessageDialog(null, "You Won!");
+        		}
+        		
+            	int duplicateFlag = 0;
+        		for (char letter : guesseArray) {
+					if (letter == letters.getValue())
+						duplicateFlag = 1;
+				}
+        		if (duplicateFlag  == 0)
+        		{
+                	guesseArray.add(letters.getValue());
+        		}
+
+            	String stringOfGuesses = "";
+            	for(int i = 0 ; i < guesseArray.size() ;i++)
+            	{
+            		stringOfGuesses += " " +  guesseArray.get(i);
+            	}
+            			
+        		guesses.setText(stringOfGuesses);
+        		
+        		gc.fillText(hangmanLives.get(numOfGuesses), 0, 0);
+        		
     		}
-        	
-        	guesseArray.add(letters.getValue());
-
-        	String stringOfGuesses = "";
-        	for(int i = 0 ; i < guesseArray.size() ;i++)
-        	{
-        		stringOfGuesses += " " +  guesseArray.get(i);
-        	}
-        			
-    		guesses.setText(stringOfGuesses);
-    		
-    		gc.fillText(hangmanLives.get(numOfGuesses), 0, 0);
-    		
-
  
 
     	}
