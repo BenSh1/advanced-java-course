@@ -1,0 +1,178 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
+
+public class TriviaController {
+	
+	
+    @FXML
+    private RadioButton option1;
+
+    @FXML
+    private RadioButton option2;
+
+    @FXML
+    private RadioButton option3;
+    
+    @FXML
+    private RadioButton option4;
+
+    @FXML
+    private ToggleGroup options;
+	
+    @FXML
+    private Label showQuestion;
+    
+    //private RadioButton[] answers;
+    private ArrayList<String> data;
+
+    
+    @FXML
+    void answerPressed(ActionEvent event) {
+    	//System.out.println(option1.getText());
+    }
+
+    @FXML
+    void reset(ActionEvent event) {
+
+    }
+	@FXML
+	public void initialize() {
+		/*answers = new RadioButton[4];
+		
+		for(int i = 0; i < 4;i++)
+		{
+			answers[i] = new RadioButton();
+		}*/
+		data = new ArrayList<>();
+		
+		Question questions[] = new Question[10];
+		String st = new String();
+		String question = "";//new String();
+		int questionFlag = 0; // 0 = not ending with question , 1 = ending with question
+		int i = 0;
+		/*String answer1 = "";
+		String answer2 = "";
+		String answer3 = "";
+		String answer4 = "";*/
+		
+		String answersArray[] = new String[4];
+		for(int k = 0; k <answersArray.length;k++ )
+		{
+			answersArray[k] = "";
+		}
+		
+		try
+		{
+			Scanner input = new Scanner(new File("triva.txt"));
+			while(input.hasNext())
+			{
+				st = input.next();
+				switch(i)
+				{
+					case 0:
+						question += st + " ";
+						break;
+					case 1:
+						answersArray[0] += st + " ";
+						//answer1 += st + " ";
+						//data.add(st);
+						//option1.setText(st + "");
+						break;
+					case 2:
+						answersArray[1] += st + " ";
+						//answer2 += st + " ";
+						//data.add(st);
+						//option2.setText(st);
+						break;
+					case 3:
+						answersArray[2] += st + " ";
+						//answer3 += st + " ";
+						//data.add(st);
+						//option3.setText(st);
+						break;
+					case 4:
+						answersArray[3] += st + " ";
+						//answer4 += st + " ";
+						//data.add(st);
+						//option4.setText(st);
+						break;
+					
+				}
+				if(st.charAt(st.length()-1) == '?')
+					i++;
+				if(st.charAt(st.length()-1) == '.')
+					i++;
+
+
+				if (i == 5)
+				{
+					
+					System.out.println("there is line breaker"); 
+					i = 0;
+				}
+
+			}
+			input.close();
+		}
+		catch(IOException e)
+		{
+			System.out.println("Error" );
+		}
+		showQuestion.setText(question);
+		
+
+		
+		/*answersArray[0] = answer1;
+		answersArray[1] = answer2;
+		answersArray[2] = answer3;
+		answersArray[3] = answer4;*/
+		
+		/*ansArray.add(answer1);
+		ansArray.add(answer2);
+		ansArray.add(answer3);	
+		ansArray.add(answer4);*/
+		
+		Random rand = new Random();
+		int randomIndexToSwap ;
+		String temp;
+		for (int j = 0; j < answersArray.length; j++) {
+			randomIndexToSwap =rand.nextInt(answersArray.length );
+			temp = answersArray[randomIndexToSwap];
+			answersArray[randomIndexToSwap] = answersArray[j];
+			answersArray[j] = temp;
+		}
+		
+		option1.setText(answersArray[0]);
+		option2.setText(answersArray[1]);
+		option3.setText(answersArray[2]);
+		option4.setText(answersArray[3]);
+		
+		/*for (String str : answersArray) {
+			
+		}*/
+		
+		//question += "?";
+		//System.out.println(question);
+		
+		//option1.setText(question);
+		//grid.
+		//option1.setText(question);
+		
+		/*for (String str : data) {
+			System.out.println(str);
+		}*/
+		//System.out.println(data.get(3));
+	}
+
+}
