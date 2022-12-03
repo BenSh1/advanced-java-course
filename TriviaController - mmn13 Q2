@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -33,39 +34,24 @@ public class TriviaController {
     @FXML
     private Label showQuestion;
     
+    @FXML
+    private Button submit;
+    
     //private RadioButton[] answers;
     private ArrayList<String> data;
 
-    
-    @FXML
-    void answerPressed(ActionEvent event) {
-    	//System.out.println(option1.getText());
-    }
+    private Question questions[] = new Question[10];
 
-    @FXML
-    void reset(ActionEvent event) {
-
-    }
 	@FXML
 	public void initialize() {
-		/*answers = new RadioButton[4];
-		
-		for(int i = 0; i < 4;i++)
-		{
-			answers[i] = new RadioButton();
-		}*/
-		data = new ArrayList<>();
-		
-		Question questions[] = new Question[10];
 		String st = new String();
-		String question = "";//new String();
+		String question = "";
 		int questionFlag = 0; // 0 = not ending with question , 1 = ending with question
 		int i = 0;
-		/*String answer1 = "";
-		String answer2 = "";
-		String answer3 = "";
-		String answer4 = "";*/
+		int j = 0;
+		String correctAnswer = new String();
 		
+		//Question q = new Question(question, correctAnswer, correctAnswer, correctAnswer, correctAnswer, correctAnswer);
 		String answersArray[] = new String[4];
 		for(int k = 0; k <answersArray.length;k++ )
 		{
@@ -78,6 +64,10 @@ public class TriviaController {
 			while(input.hasNext())
 			{
 				st = input.next();
+				/*if (!(st.charAt(0) == '-'))
+				{
+					
+				}*/
 				switch(i)
 				{
 					case 0:
@@ -85,43 +75,38 @@ public class TriviaController {
 						break;
 					case 1:
 						answersArray[0] += st + " ";
-						//answer1 += st + " ";
-						//data.add(st);
-						//option1.setText(st + "");
 						break;
 					case 2:
 						answersArray[1] += st + " ";
-						//answer2 += st + " ";
-						//data.add(st);
-						//option2.setText(st);
 						break;
 					case 3:
 						answersArray[2] += st + " ";
-						//answer3 += st + " ";
-						//data.add(st);
-						//option3.setText(st);
 						break;
 					case 4:
 						answersArray[3] += st + " ";
-						//answer4 += st + " ";
-						//data.add(st);
-						//option4.setText(st);
 						break;
 					
 				}
 				if(st.charAt(st.length()-1) == '?')
+				{
 					i++;
+				}
 				if(st.charAt(st.length()-1) == '.')
 					i++;
-
-
 				if (i == 5)
 				{
-					
-					System.out.println("there is line breaker"); 
+					questionFlag = 0;
 					i = 0;
+					correctAnswer = answersArray[0];
+					suffleArray(answersArray);
+					questions[j] = new Question(question, answersArray[0], answersArray[1], answersArray[2],answersArray[3], correctAnswer);
+					j++;
+					question = "";
+					for(int k = 0; k <answersArray.length;k++ )
+					{
+						answersArray[k] = "";
+					}
 				}
-
 			}
 			input.close();
 		}
@@ -129,7 +114,26 @@ public class TriviaController {
 		{
 			System.out.println("Error" );
 		}
-		showQuestion.setText(question);
+		showQuestion.setText(questions[0].getQuestion());
+		
+		for (int k = 0; k < questions.length; k++) {
+			System.out.println(questions[k].getQuestion());
+			System.out.println(questions[k].getCorrectAnswer());
+			System.out.println(questions[k].getAnswer1());
+			System.out.println(questions[k].getAnswer2());
+			System.out.println(questions[k].getAnswer3());
+			System.out.println(questions[k].getAnswer4());
+		}
+		option1.setText(questions[0].getAnswer1());
+		option2.setText(questions[0].getAnswer2());
+		option3.setText(questions[0].getAnswer3());
+		option4.setText(questions[0].getAnswer4());
+
+		//System.out.println(answersArray[0]);
+		/*for (int k = 0; k < questions.length; k++) {
+			System.out.println(questions[k].getAnswer1());
+			
+		}*/
 		
 
 		
@@ -137,42 +141,40 @@ public class TriviaController {
 		answersArray[1] = answer2;
 		answersArray[2] = answer3;
 		answersArray[3] = answer4;*/
-		
-		/*ansArray.add(answer1);
-		ansArray.add(answer2);
-		ansArray.add(answer3);	
-		ansArray.add(answer4);*/
+
+	}
+	
+    @FXML
+    void answerPressed(ActionEvent event) {
+    	//System.out.println(option1.getText());
+    	//System.out.println(submit.getText());
+    	/*if(option1.isSelected())
+    	{
+    		System.out.println("asdasd");
+    	}*/
+    	
+    	
+    	
+    }
+
+    @FXML
+    void reset(ActionEvent event) {
+
+    }
+	
+	
+	private static void suffleArray(String arr[]) {
 		
 		Random rand = new Random();
 		int randomIndexToSwap ;
 		String temp;
-		for (int j = 0; j < answersArray.length; j++) {
-			randomIndexToSwap =rand.nextInt(answersArray.length );
-			temp = answersArray[randomIndexToSwap];
-			answersArray[randomIndexToSwap] = answersArray[j];
-			answersArray[j] = temp;
+		for (int j = 0; j < arr.length; j++) {
+			randomIndexToSwap =rand.nextInt(arr.length );
+			temp = arr[randomIndexToSwap];
+			arr[randomIndexToSwap] = arr[j];
+			arr[j] = temp;
 		}
 		
-		option1.setText(answersArray[0]);
-		option2.setText(answersArray[1]);
-		option3.setText(answersArray[2]);
-		option4.setText(answersArray[3]);
-		
-		/*for (String str : answersArray) {
-			
-		}*/
-		
-		//question += "?";
-		//System.out.println(question);
-		
-		//option1.setText(question);
-		//grid.
-		//option1.setText(question);
-		
-		/*for (String str : data) {
-			System.out.println(str);
-		}*/
-		//System.out.println(data.get(3));
 	}
 
 }
