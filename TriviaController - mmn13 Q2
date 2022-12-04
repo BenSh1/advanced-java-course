@@ -15,7 +15,15 @@ import javafx.scene.layout.GridPane;
 
 public class TriviaController {
 	
-	
+    @FXML
+    private Button science;
+    
+    @FXML
+    private Button geography;
+
+    @FXML
+    private Button history;
+    
     @FXML
     private RadioButton option1;
 
@@ -40,23 +48,40 @@ public class TriviaController {
     //private RadioButton[] answers;
     private ArrayList<String> data;
 
-    private Question questions[] = new Question[10];
+    //private Question questions[] = new Question[10];
+    private ArrayList<Question> questions; 
+    
+    //The topic the user wants to get questions about
+    private String chosenTopic;
+    
+    private QuestionsRepository repositoryQues;
+    
 
 	@FXML
 	public void initialize() {
+		questions = new ArrayList<>();
+		int topicFlag = 0; // 0 = not read the question , 1 = read the question
+
 		String st = new String();
 		String question = "";
 		int questionFlag = 0; // 0 = not ending with question , 1 = ending with question
 		int i = 0;
 		int j = 0;
 		String correctAnswer = new String();
+		Question quest;
+		
 		
 		//Question q = new Question(question, correctAnswer, correctAnswer, correctAnswer, correctAnswer, correctAnswer);
+		
+		repositoryQues = new QuestionsRepository();
+		
 		String answersArray[] = new String[4];
 		for(int k = 0; k <answersArray.length;k++ )
 		{
 			answersArray[k] = "";
 		}
+		
+		
 		
 		try
 		{
@@ -64,10 +89,12 @@ public class TriviaController {
 			while(input.hasNext())
 			{
 				st = input.next();
-				/*if (!(st.charAt(0) == '-'))
+				
+				/*if (st.equals("ending"))
 				{
-					
+				 	topicFlag = 0;
 				}*/
+				
 				switch(i)
 				{
 					case 0:
@@ -99,7 +126,9 @@ public class TriviaController {
 					i = 0;
 					correctAnswer = answersArray[0];
 					suffleArray(answersArray);
-					questions[j] = new Question(question, answersArray[0], answersArray[1], answersArray[2],answersArray[3], correctAnswer);
+					//questions[j] = new Question(question, answersArray[0], answersArray[1], answersArray[2],answersArray[3], correctAnswer);
+					quest = new Question(question, answersArray[0], answersArray[1], answersArray[2],answersArray[3], correctAnswer);
+					questions.add(quest);
 					j++;
 					question = "";
 					for(int k = 0; k <answersArray.length;k++ )
@@ -107,6 +136,16 @@ public class TriviaController {
 						answersArray[k] = "";
 					}
 				}
+				
+				/*if (st.equals(chosenTopic))
+				{
+				 	topicFlag = 1;
+				}*/
+		
+				/*if(topicFlag == 1)
+				{
+
+				}*/
 			}
 			input.close();
 		}
@@ -114,9 +153,27 @@ public class TriviaController {
 		{
 			System.out.println("Error" );
 		}
-		showQuestion.setText(questions[0].getQuestion());
+		showQuestion.setText(questions.get(0).getQuestion());
+		option1.setText(questions.get(0).getAnswer1());
+		option2.setText(questions.get(0).getAnswer2());
+		option3.setText(questions.get(0).getAnswer3());
+		option4.setText(questions.get(0).getAnswer4());
 		
-		for (int k = 0; k < questions.length; k++) {
+		for (int k = 0; k < questions.size(); k++) {
+			System.out.println(questions.get(k).getQuestion());
+			System.out.println(questions.get(k).getCorrectAnswer());
+			System.out.println(questions.get(k).getAnswer1());
+			System.out.println(questions.get(k).getAnswer2());
+			System.out.println(questions.get(k).getAnswer3());
+			System.out.println(questions.get(k).getAnswer4());
+		}
+		
+
+		
+		
+		/*showQuestion.setText(questions[0].getQuestion());
+		
+		for (int k = 0; k < 5; k++) {
 			System.out.println(questions[k].getQuestion());
 			System.out.println(questions[k].getCorrectAnswer());
 			System.out.println(questions[k].getAnswer1());
@@ -127,7 +184,10 @@ public class TriviaController {
 		option1.setText(questions[0].getAnswer1());
 		option2.setText(questions[0].getAnswer2());
 		option3.setText(questions[0].getAnswer3());
-		option4.setText(questions[0].getAnswer4());
+		option4.setText(questions[0].getAnswer4());*/
+		
+		
+		
 
 		//System.out.println(answersArray[0]);
 		/*for (int k = 0; k < questions.length; k++) {
@@ -143,6 +203,22 @@ public class TriviaController {
 		answersArray[3] = answer4;*/
 
 	}
+	
+    @FXML
+    void sciencePressed(ActionEvent event) {
+
+    }
+    
+
+    @FXML
+    void geographyPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void historyPressed(ActionEvent event) {
+
+    }
 	
     @FXML
     void answerPressed(ActionEvent event) {
