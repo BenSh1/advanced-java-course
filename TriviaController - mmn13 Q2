@@ -252,7 +252,9 @@ public class TriviaController {
     	}
     	else
     	{
-    		JOptionPane.showMessageDialog(null, "Very Well, the quiz is over!\n Your score is : " + score +"\nfor trying another categoria question  please press on another category below\nfor starting new game please press on the new-game button");
+    		JOptionPane.showMessageDialog(null, "Very Well, the quiz is over!\nYour score is : " +
+    						score +"\nfor trying another categoria question  please press on another category below"
+    								+ "\nfor starting new game please press on the new-game button");
     	}
 	}
     
@@ -271,6 +273,9 @@ public class TriviaController {
     		initQuestion(repositoryQues.getGeographyQuestion());
 
     	}
+    	geography.setVisible(false);
+    	history.setVisible(false);
+    	science.setVisible(false);
     }
     
 
@@ -284,7 +289,11 @@ public class TriviaController {
     	{
         	chosenTopic = history.getText();
         	initQuestion(repositoryQues.getHistoryQuestion());
-    	}
+    	}    	
+    	
+    	geography.setVisible(false);
+    	history.setVisible(false);
+    	science.setVisible(false);
 
     }
 
@@ -300,6 +309,9 @@ public class TriviaController {
     		initQuestion(repositoryQues.getScienceQuestion());
     	}
 
+    	geography.setVisible(false);
+    	history.setVisible(false);
+    	science.setVisible(false);
     }
     
     
@@ -323,11 +335,18 @@ public class TriviaController {
 		option2.setText("-");
 		option3.setText("-");
 		option4.setText("-");	
+		
+    	geography.setVisible(true);
+    	history.setVisible(true);
+    	science.setVisible(true);
     }
     
     @FXML
     void finishPressed(ActionEvent event) {
-
+    	
+		JOptionPane.showMessageDialog(null, "Very Well,the quiz is over on your demand.\nYour score is : " +
+				score +"\nfor starting new game please press on the new-game button.");
+    	
     }
     
 	private static void suffleArray(String arr[]) {
