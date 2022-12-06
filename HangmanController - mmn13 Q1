@@ -20,6 +20,8 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class HangmanController {
 
+	final int LETTERS  = 26;
+	
     @FXML
     private Canvas canv;
 
@@ -34,11 +36,8 @@ public class HangmanController {
     
 	private GraphicsContext gc;
 
-	private ArrayList<Character> guesseArray;
 	private String randomWord;
-	private String revealWord;
-	private int numOfGuesses;
-	
+
 	private ArrayList<String> hangmanLives = new ArrayList<String>(Arrays.asList(
 			"\n"
 			+"			 +------+\n"
@@ -100,102 +99,100 @@ public class HangmanController {
 			));
 
 	
-
+	private Game game;
 	@FXML
 	public void initialize() {
 		gc = canv.getGraphicsContext2D();
-		numOfGuesses = 0;
-		randomWord = createSecretWord();
-	    System.out.println("randomWord : " + randomWord);
 
-		gc.fillText(hangmanLives.get(numOfGuesses), 0, 0);
+		game = new Game();
 		
-		revealWord = new String();
-
-    	for(int j = 0; j < randomWord.length();j++)
+		game.setRandomWord(createSecretWord());
+		System.out.println("game.getRandomWord : " + game.getRandomWord());
+		
+		gc.fillText(hangmanLives.get(game.getNumOfGuesses()), 0, 0);
+		
+		for(int j = 0; j < game.getRandomWord().length();j++)
     	{
-    		revealWord+= '_';
+    		game.setRevealWord(game.getRevealWord() + '_');
     	}
-    	
-    	rightLetters.setText(revealWord);
+
+		rightLetters.setText(game.getRevealWord());
 		
-		guesseArray = new ArrayList<Character>();
 		initCombobox();
 	}
 
     @FXML
     void guessPressed(ActionEvent event) {
-    	if (numOfGuesses > 5)
-		{
-			JOptionPane.showMessageDialog(null, "You lost!");
-		}
+    	if(letters.getSelectionModel().isEmpty() == true)
+    	{
+			JOptionPane.showMessageDialog(null, "You must choose letter!");
+    	}
     	else
     	{
-    		if( !(revealWord.compareTo(randomWord) == 0))
-    		{
-    	       	revealWord = drawLetterInWord(randomWord , letters.getValue(),revealWord);
-            	rightLetters.setText(revealWord);
-        		if(revealWord.compareTo(randomWord) == 0)
+    		if(game.getNumOfGuesses() > 5)
+        	{
+    			JOptionPane.showMessageDialog(null, "You lost!");
+        	}
+        	else
+        	{
+        		if( !(game.getRevealWord().equals(game.getRandomWord())))
         		{
-        			JOptionPane.showMessageDialog(null, "You Won!");
-        		}
-        		
-            	int duplicateFlag = 0;
-        		for (char letter : guesseArray) {
-					if (letter == letters.getValue())
-						duplicateFlag = 1;
-				}
-        		if (duplicateFlag  == 0)
-        		{
-                	guesseArray.add(letters.getValue());
-        		}
+        			game.setRevealWord(drawLetterInWord(game.getRandomWord(),letters.getValue(),game.getRevealWord())); 
+                	
+        			rightLetters.setText(game.getRevealWord());
+        			
+        			if(game.getRevealWord().equals(game.getRandomWord()))
+            		{
+            			JOptionPane.showMessageDialog(null, "You Won!");
+            		}
 
-            	String stringOfGuesses = "";
-            	for(int i = 0 ; i < guesseArray.size() ;i++)
-            	{
-            		stringOfGuesses += " " +  guesseArray.get(i);
-            	}
-            			
-        		guesses.setText(stringOfGuesses);
-        		
-        		gc.fillText(hangmanLives.get(numOfGuesses), 0, 0);
-        		
-    		}
- 
+                	game.getGuesseArray().add(letters.getValue());
+                	String stringOfGuesses = "";
 
+                	for(int i = 0 ; i < game.getGuesseArray().size() ;i++)
+                	{
+                		stringOfGuesses += " " +   game.getGuesseArray().get(i);
+                	}
+                		
+            		guesses.setText(stringOfGuesses);
+            		gc.fillText(hangmanLives.get(game.getNumOfGuesses()), 0, 0);
+            		updateCombobox(letters.getValue());
+        		}
+        	}
     	}
-    
-		/*String msg;
-
-		if(revealWord.compareTo(randomWord) == 0)
-		{
-			msg = JOptionPane.showInputDialog("You Won! , Would you like to start over?")
-		}
-		if (msg == "yes" || msg == "Yes" )
-		{
-			
-		}*/
     }
+	private void updateCombobox(char letter)
+	{
+    	for(int i = 0; i< letters.getItems().size();i++)
+    	{
+    		if( letter == letters.getItems().get(i) )
+    			letters.getItems().remove(i);
+    	}
+	}
     
     @FXML
     void resetPressed(ActionEvent event) {
-		numOfGuesses = 0;
+    	game.setNumOfGuesses(0);
+    	
     	gc.clearRect(0,0 , 460, 120);
-		gc.fillText(hangmanLives.get(numOfGuesses), 0, 0);
+		gc.fillText(hangmanLives.get(game.getNumOfGuesses()), 0, 0);
+
 		randomWord = createSecretWord();
+    	game.setRandomWord(randomWord);
+ 
 	    System.out.println("randomWord : " + randomWord);
-	    revealWord = "";
-    	for(int j = 0; j < randomWord.length();j++)
+	    
+	    game.setRevealWord("");
+		for(int j = 0; j < game.getRandomWord().length();j++)
     	{
-    		revealWord+= '_';
+    		game.setRevealWord(game.getRevealWord() + '_');
     	}
     	
-    	rightLetters.setText(revealWord);
+		rightLetters.setText(game.getRevealWord());
     	guesses.setText('-' + "");
     	
-    	guesseArray.clear();
-    	
-
+    	game.getGuesseArray().clear();
+    	initCombobox();
     }
 
 	private String drawLetterInWord(String secretWord , char letter , String revealWord)
@@ -207,18 +204,20 @@ public class HangmanController {
     		if(secretWord.charAt(i) == letter)
     		{
     			foundLetterFlag = 1;
-    			revealWord = revealWord.substring(0,i) + letter + revealWord.substring(i+1,secretWord.length()) ;
+    			game.setRevealWord( game.getRevealWord().substring(0,i) + letter + game.getRevealWord().substring(i+1,secretWord.length()) );
     		}
     	}
     	if ( foundLetterFlag == 0)
     	{
-    		numOfGuesses += 1;
+    		game.setNumOfGuesses(game.getNumOfGuesses() + 1);
     	}
-    	return revealWord;
+
+    	return game.getRevealWord();
 	} 
-   
-	public void initCombobox() {
-    	final int LETTERS  = 26 ;
+	
+	private void initCombobox() 
+	{
+		letters.getItems().clear();
     	char letter = 'a';
     	for(int i = 0; i< LETTERS;i++)
     	{
@@ -258,8 +257,4 @@ public class HangmanController {
 		secretWord = words.get(rand.nextInt(words.size()));
 		return secretWord;
     }
-    
-	
-
-	
 }
