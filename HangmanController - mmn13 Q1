@@ -33,7 +33,6 @@ public class HangmanController {
     
 	private GraphicsContext gc;
 
-	private String randomWord;
 
 	private ArrayList<String> hangmanLives = new ArrayList<String>(Arrays.asList(
 			"\n"
@@ -97,6 +96,7 @@ public class HangmanController {
 
 	
 	private Game game;
+
 	@FXML
 	public void initialize() {
 		gc = canv.getGraphicsContext2D();
@@ -174,7 +174,7 @@ public class HangmanController {
     	gc.clearRect(0,0 , 460, 120);
 		gc.fillText(hangmanLives.get(game.getNumOfGuesses()), 0, 0);
 
-		randomWord = createSecretWord();
+		String randomWord = createSecretWord();
     	game.setRandomWord(randomWord);
  
 	    System.out.println("randomWord : " + randomWord);
