@@ -16,6 +16,9 @@ import javafx.scene.control.ToggleGroup;
 public class TriviaController {
 
     @FXML
+    private Label feedback;
+    
+    @FXML
     private Button geography;
 
     @FXML
@@ -44,21 +47,24 @@ public class TriviaController {
 
     @FXML
     private Button submit;
-   
-    //The topic the user wants to get questions about
-    private String chosenTopic;
-    private QuestionsRepository repositoryQues;
-    private int randomIndexQuestion;
-    private int score;
-    
 
+    private Game game;
+    
     @FXML
 	public void initialize() {
-		repositoryQues = new QuestionsRepository();
-		score = 0;
+    	
+    	game = new Game();
+    	
+		//repositoryQues = new QuestionsRepository();
+
+		//score = 0;
 		
 		importQuestionsFromText();
 		
+		/*System.out.println("size science : " +game.getRepositoryQues().getScienceQuestion().size());
+		System.out.println("size geography : " +game.getRepositoryQues().getGeographyQuestion().size());
+		System.out.println("size history : " +game.getRepositoryQues().getHistoryQuestion().size());*/
+
 		showQuestion.setText("Choose one from the catcagroy below to get start");
 		option1.setText("-");
 		option2.setText("-");
@@ -71,7 +77,7 @@ public class TriviaController {
 		String st = new String();
 		String question = "";
 		int i = 0;
-		score = 0;
+		//score = 0;
 		String correctAnswer = new String();
 		Question quest;
 		String topic = "";
@@ -86,8 +92,7 @@ public class TriviaController {
 			Scanner input = new Scanner(new File("triva.txt"));
 			while(input.hasNext())
 			{
-				st = input.next();
-								
+				st = input.next();	
 				switch(i)
 				{
 					case 0 : 
@@ -108,12 +113,10 @@ public class TriviaController {
 					case 5:
 						answersArray[3] += st + " ";
 						break;
-					
 				}
 				if(st.charAt(st.length()-1) == '?')
-				{
 					i++;
-				}
+				
 				if(st.charAt(st.length()-1) == '.')
 					i++;
 				
@@ -125,17 +128,19 @@ public class TriviaController {
 
 					if(topic.equals("science."))
 					{
-						repositoryQues.getScienceQuestion().add(quest);
+						//repositoryQues.getScienceQuestion().add(quest);
+						game.getRepositoryQues().getScienceQuestion().add(quest);
 					}
 					else if(topic.equals("geography.") )
 					{
-						repositoryQues.getGeographyQuestion().add(quest);
+						//repositoryQues.getGeographyQuestion().add(quest);
+						game.getRepositoryQues().getGeographyQuestion().add(quest);
 					}
 					else if(topic.equals("history."))
 					{
-						repositoryQues.getHistoryQuestion().add(quest);
+						//repositoryQues.getHistoryQuestion().add(quest);
+						game.getRepositoryQues().getHistoryQuestion().add(quest);
 					}
-					
 					i = 0;
 					question = "";
 					for(int k = 0; k <answersArray.length;k++ )
@@ -156,59 +161,94 @@ public class TriviaController {
     {
     	if(option1.isSelected())
 		{
-			if(option1.getText().equals(list.get(randomIndexQuestion).getCorrectAnswer())  )
+			//if(option1.getText().equals(list.get(randomIndexQuestion).getCorrectAnswer())  )
+    		if(option1.getText().equals(list.get(game.getRandomIndexQuestion()).getCorrectAnswer())  )
 			{
-		    	JOptionPane.showMessageDialog(null, "Good Job!");
-		    	score += 10;
+		    	//JOptionPane.showMessageDialog(null, "Correct!");
+		    	feedback.setText("Correct!");
+    			//score += 10;
+		    	game.setScore(game.getScore() + 10);
 			}
 			else
 			{
-		    	JOptionPane.showMessageDialog(null, "Not correct! \nThe right answer is :" + list.get(randomIndexQuestion).getCorrectAnswer());
-		    	score -= 5;
+		    	//JOptionPane.showMessageDialog(null, "Not correct! \nThe right answer is :" + list.get(randomIndexQuestion).getCorrectAnswer());
+		    	//JOptionPane.showMessageDialog(null, "Not correct! \nThe right answer is :" + list.get(game.getRandomIndexQuestion()).getCorrectAnswer());
+		    	feedback.setText("Not correct! ,The right answer is :" + list.get(game.getRandomIndexQuestion()).getCorrectAnswer());
+		    	
+				//score -= 5;
+		    	game.setScore(game.getScore() - 5);
 			}
 
 		}
     	else if(option2.isSelected())
 		{
-			if(option2.getText().equals(list.get(randomIndexQuestion).getCorrectAnswer())  )
+			//if(option2.getText().equals(list.get(randomIndexQuestion).getCorrectAnswer())  )
+    		if(option2.getText().equals(list.get(game.getRandomIndexQuestion()).getCorrectAnswer())  )
 			{
-			    JOptionPane.showMessageDialog(null, "Good Job!");
-			    score += 10;
+			    //JOptionPane.showMessageDialog(null, "Correct!");
+		    	feedback.setText("Correct!");
+
+
+			    
+			    //score += 10;
+			    game.setScore(game.getScore() + 10);
 			}
 			else
 			{
-			    JOptionPane.showMessageDialog(null, "Not correct! \nThe right answer is :" + list.get(randomIndexQuestion).getCorrectAnswer());
-			    score -= 5;
+			    //JOptionPane.showMessageDialog(null, "Not correct! \nThe right answer is :" + list.get(randomIndexQuestion).getCorrectAnswer());
+			    //JOptionPane.showMessageDialog(null, "Not correct! \nThe right answer is :" + list.get(game.getRandomIndexQuestion()).getCorrectAnswer());
+		    	feedback.setText("Not correct! ,The right answer is :" + list.get(game.getRandomIndexQuestion()).getCorrectAnswer());
+
+				//score -= 5;
+			    game.setScore(game.getScore() - 5);
 			}
 		}
     	else if(option3.isSelected())
 		{
-			if(option3.getText().equals(list.get(randomIndexQuestion).getCorrectAnswer())  )
-			{
-			    JOptionPane.showMessageDialog(null, "Good Job!");
-			    score += 10;
+			//if(option3.getText().equals(list.get(randomIndexQuestion).getCorrectAnswer())  )
+			if(option3.getText().equals(list.get(game.getRandomIndexQuestion()).getCorrectAnswer())  )
+
+    		{
+			    //JOptionPane.showMessageDialog(null, "Correct!");
+		    	feedback.setText("Correct!");
+
+			    //score += 10;
+			    game.setScore(game.getScore() + 10);
 			}
 			else
 			{
-			    JOptionPane.showMessageDialog(null, "Not correct! \nThe right answer is :" + list.get(randomIndexQuestion).getCorrectAnswer());
-			    score -= 5;
+			   //JOptionPane.showMessageDialog(null, "Not correct! \nThe right answer is :" + list.get(randomIndexQuestion).getCorrectAnswer());
+			    //JOptionPane.showMessageDialog(null, "Not correct! \nThe right answer is :" + list.get(game.getRandomIndexQuestion()).getCorrectAnswer());
+		    	feedback.setText("Not correct! ,The right answer is :" + list.get(game.getRandomIndexQuestion()).getCorrectAnswer());
+
+				//score -= 5;
+			    game.setScore(game.getScore() - 5);
 			}
 		}
-       	else 
+       	else if(option4.isSelected())
     	{
-    		if(option4.getText().equals(list.get(randomIndexQuestion).getCorrectAnswer())  )
-    		{
-    			JOptionPane.showMessageDialog(null, "Good Job!");
-    			score += 10;
+    		//if(option4.getText().equals(list.get(randomIndexQuestion).getCorrectAnswer())  )
+    		if(option4.getText().equals(list.get(game.getRandomIndexQuestion()).getCorrectAnswer())  )
+
+       		{
+    			//JOptionPane.showMessageDialog(null, "Correct!");
+		    	feedback.setText("Correct!");
+    			//score += 10;
+    			game.setScore(game.getScore() + 10);
     		}
     		else
     		{
-    		    JOptionPane.showMessageDialog(null, "Not correct! \nThe right answer is :" + list.get(randomIndexQuestion).getCorrectAnswer());
-    			score -= 5;
+    		    //JOptionPane.showMessageDialog(null, "Not correct! \nThe right answer is :" + list.get(randomIndexQuestion).getCorrectAnswer());
+    		    //JOptionPane.showMessageDialog(null, "Not correct! \nThe right answer is :" + list.get(game.getRandomIndexQuestion()).getCorrectAnswer());
+		    	feedback.setText("Not correct! ,The right answer is :" + list.get(game.getRandomIndexQuestion()).getCorrectAnswer());
+
+    			//score -= 5;
+    		    game.setScore(game.getScore() - 5);
     		}
     	}
     	
-    	list.remove(randomIndexQuestion);
+    	//list.remove(randomIndexQuestion);
+    	list.remove(game.getRandomIndexQuestion());
 		nextQuestion(list );
     }
 
@@ -218,21 +258,53 @@ public class TriviaController {
     void answerPressed(ActionEvent event) {
     	if( !(option1.isSelected()) && !(option2.isSelected()) && !(option3.isSelected()) && !(option4.isSelected()))
     	{
-    		JOptionPane.showMessageDialog(null, "You must choose one option!");
+    		//JOptionPane.showMessageDialog(null, "You must choose one option!");
+    		feedback.setText("You must choose one option!");
     	}
     	else
     	{
-    		if(chosenTopic.equals("Science"))
+    		//if(chosenTopic.equals("Science"))
+    		if(game.getChosenTopic().equals("Science"))
     		{
-    			checkingAnswer(repositoryQues.getScienceQuestion());
+    			//if(repositoryQues.getScienceQuestion().size() == 0)
+    			if(game.getRepositoryQues().getScienceQuestion().size() == 0)
+    			{
+    	    		//JOptionPane.showMessageDialog(null, "No question left!");
+    	    		feedback.setText("No question left!");
+    			}
+    
+    			else
+    				checkingAnswer(game.getRepositoryQues().getScienceQuestion());
+        			//checkingAnswer(repositoryQues.getScienceQuestion());
+    			
     		}
-    		else if(chosenTopic.equals("Geography"))
+    		//else if(chosenTopic.equals("Geography"))
+    		else if(game.getChosenTopic().equals("Geography"))
     		{
-    			checkingAnswer(repositoryQues.getGeographyQuestion());
+    			//if(repositoryQues.getGeographyQuestion().size() == 0)
+        		if(game.getRepositoryQues().getGeographyQuestion().size() == 0)
+    			{
+    	    		//JOptionPane.showMessageDialog(null, "No question left!");
+    	    		feedback.setText("No question left!");
+
+    			}
+    			else
+    				checkingAnswer(game.getRepositoryQues().getGeographyQuestion());
+    				//checkingAnswer(repositoryQues.getGeographyQuestion());
     		}
-    		else if(chosenTopic.equals("History"))
+    		//else if(chosenTopic.equals("History"))
+    		else if(game.getChosenTopic().equals("History"))
     		{
-    			checkingAnswer(repositoryQues.getHistoryQuestion());
+    			//if(repositoryQues.getHistoryQuestion().size() == 0)
+        		if(game.getRepositoryQues().getHistoryQuestion().size() == 0)
+    			{
+    	    		//JOptionPane.showMessageDialog(null, "No question left!");
+    	    		feedback.setText("No question left!");
+
+    			}
+    			else
+    				checkingAnswer(game.getRepositoryQues().getHistoryQuestion());
+        			//checkingAnswer(repositoryQues.getHistoryQuestion());
     		}
     	}
     }
@@ -243,18 +315,44 @@ public class TriviaController {
     	if(arr.size()> 0)
     	{
         	Random rand = new Random();
-        	randomIndexQuestion = rand.nextInt(arr.size());
-        	showQuestion.setText(arr.get(randomIndexQuestion).getQuestion());
+        	//randomIndexQuestion = rand.nextInt(arr.size());
+        	game.setRandomIndexQuestion(rand.nextInt(arr.size()));
+
+        	/*showQuestion.setText(arr.get(randomIndexQuestion).getQuestion());
     		option1.setText(arr.get(randomIndexQuestion).getAnswer1());
     		option2.setText(arr.get(randomIndexQuestion).getAnswer2());
     		option3.setText(arr.get(randomIndexQuestion).getAnswer3());
-    		option4.setText(arr.get(randomIndexQuestion).getAnswer4());
+    		option4.setText(arr.get(randomIndexQuestion).getAnswer4());*/
+        	showQuestion.setText(arr.get(game.getRandomIndexQuestion()).getQuestion());
+    		option1.setText(arr.get(game.getRandomIndexQuestion()).getAnswer1());
+    		option2.setText(arr.get(game.getRandomIndexQuestion()).getAnswer2());
+    		option3.setText(arr.get(game.getRandomIndexQuestion()).getAnswer3());
+    		option4.setText(arr.get(game.getRandomIndexQuestion()).getAnswer4());
+    		
+    		option1.setSelected(false);
+    		option2.setSelected(false);
+    		option3.setSelected(false);
+    		option4.setSelected(false);
     	}
     	else
     	{
-    		JOptionPane.showMessageDialog(null, "Very Well, the quiz is over!\nYour score is : " +
+    		/*JOptionPane.showMessageDialog(null, "Very Well, the quiz is over!\nYour score is : " +
     						score +"\nfor trying another categoria question  please press on another category below"
-    								+ "\nfor starting new game please press on the new-game button");
+    								+ "\nfor starting new game please press on the new-game button");*/
+    	
+    		/*showQuestion.setText("Very Well,the quiz is over - no question left!.\nYour score is :" 
+    		+ score + "\nfor statring new game press on the button new-game");*/
+    		showQuestion.setText("Very Well,the quiz is over - no question left!.\nYour score is :" 
+    	    		+ game.getScore() + "\nfor statring new game press on the button new-game");
+    		
+    		option1.setVisible(false);
+    		option2.setVisible(false);
+    		option3.setVisible(false);
+    		option4.setVisible(false);
+    		
+    	   	geography.setVisible(false);
+        	history.setVisible(false);
+        	science.setVisible(false);
     	}
 	}
     
@@ -262,17 +360,12 @@ public class TriviaController {
 
     @FXML
     void geographyPressed(ActionEvent event) {
-    	
-    	if(repositoryQues.getGeographyQuestion().size() == 0)
-    	{
-    		JOptionPane.showMessageDialog(null, "There is no Geography questions left!");
-    	}
-    	else
-    	{
-    		chosenTopic = geography.getText();
-    		initQuestion(repositoryQues.getGeographyQuestion());
 
-    	}
+		//chosenTopic = geography.getText();
+    	game.setChosenTopic(geography.getText());
+		//initQuestion(repositoryQues.getGeographyQuestion());
+		initQuestion(game.getRepositoryQues().getGeographyQuestion());
+		
     	geography.setVisible(false);
     	history.setVisible(false);
     	science.setVisible(false);
@@ -281,16 +374,12 @@ public class TriviaController {
 
     @FXML
     void historyPressed(ActionEvent event) {
-    	if(repositoryQues.getHistoryQuestion().size() == 0)
-    	{
-    		JOptionPane.showMessageDialog(null, "There is no History questions left!");
-    	}
-    	else
-    	{
-        	chosenTopic = history.getText();
-        	initQuestion(repositoryQues.getHistoryQuestion());
-    	}    	
     	
+    	//chosenTopic = history.getText();
+    	game.setChosenTopic(history.getText());
+    	//initQuestion(repositoryQues.getHistoryQuestion());
+    	initQuestion(game.getRepositoryQues().getHistoryQuestion());
+
     	geography.setVisible(false);
     	history.setVisible(false);
     	science.setVisible(false);
@@ -299,15 +388,11 @@ public class TriviaController {
 
     @FXML
     void sciencePressed(ActionEvent event) {
-    	if(repositoryQues.getScienceQuestion().size() == 0)
-    	{
-    		JOptionPane.showMessageDialog(null, "There is no Science questions left!");
-    	}
-    	else
-    	{
-        	chosenTopic = science.getText();
-    		initQuestion(repositoryQues.getScienceQuestion());
-    	}
+
+    	//chosenTopic = science.getText();
+    	game.setChosenTopic(science.getText());
+    	//initQuestion(repositoryQues.getScienceQuestion());
+    	initQuestion(game.getRepositoryQues().getScienceQuestion());
 
     	geography.setVisible(false);
     	history.setVisible(false);
@@ -317,24 +402,50 @@ public class TriviaController {
     
     private void initQuestion(ArrayList<Question>  arr) {
     	Random rand = new Random();
-    	randomIndexQuestion = rand.nextInt(arr.size());
-    	showQuestion.setText(arr.get(randomIndexQuestion).getQuestion());
+    	//randomIndexQuestion = rand.nextInt(arr.size());
+    	game.setRandomIndexQuestion(rand.nextInt(arr.size()));
+    	/*showQuestion.setText(arr.get(randomIndexQuestion).getQuestion());
 		option1.setText(arr.get(randomIndexQuestion).getAnswer1());
 		option2.setText(arr.get(randomIndexQuestion).getAnswer2());
 		option3.setText(arr.get(randomIndexQuestion).getAnswer3());
-		option4.setText(arr.get(randomIndexQuestion).getAnswer4());
+		option4.setText(arr.get(randomIndexQuestion).getAnswer4());*/
+    	
+    	showQuestion.setText(arr.get(game.getRandomIndexQuestion()).getQuestion());
+		option1.setText(arr.get(game.getRandomIndexQuestion()).getAnswer1());
+		option2.setText(arr.get(game.getRandomIndexQuestion()).getAnswer2());
+		option3.setText(arr.get(game.getRandomIndexQuestion()).getAnswer3());
+		option4.setText(arr.get(game.getRandomIndexQuestion()).getAnswer4());
 	}
     
     @FXML
     void resetPressed(ActionEvent event) {
     	importQuestionsFromText();
-    	score = 0;
+    	//score = 0;
+    	game.setScore(0);
+    	game.setChosenTopic("");
+    	feedback.setText("");
     	
+    	game.getRepositoryQues().getScienceQuestion().clear();
+    	game.getRepositoryQues().getGeographyQuestion().clear();
+    	game.getRepositoryQues().getHistoryQuestion().clear();
+
+		importQuestionsFromText();
+
 		showQuestion.setText("Choose one from the catcagroy below to get start");
 		option1.setText("-");
 		option2.setText("-");
 		option3.setText("-");
 		option4.setText("-");	
+		
+		option1.setVisible(true);
+		option2.setVisible(true);
+		option3.setVisible(true);
+		option4.setVisible(true);
+		
+		option1.setSelected(false);
+		option2.setSelected(false);
+		option3.setSelected(false);
+		option4.setSelected(false);
 		
     	geography.setVisible(true);
     	history.setVisible(true);
@@ -344,8 +455,29 @@ public class TriviaController {
     @FXML
     void finishPressed(ActionEvent event) {
     	
-		JOptionPane.showMessageDialog(null, "Very Well,the quiz is over on your demand.\nYour score is : " +
-				score +"\nfor starting new game please press on the new-game button.");
+		/*JOptionPane.showMessageDialog(null, "Very Well,the quiz is over on your demand.\nYour score is : " +
+				score +"\nfor starting new game please press on the new-game button.");*/
+		
+		/*showQuestion.setText("Very Well,the quiz is over on your demand.\nYour score is : " 
+				+ 	score + "\nfor statring new game press on the button new-game");*/
+    	showQuestion.setText("Very Well,the quiz is over on your demand.\nYour score is : " 
+				+ 	game.getScore() + "\nfor statring new game press on the button new-game");
+    	
+		/*option1.setText("-");
+		option2.setText("-");
+		option3.setText("-");
+		option4.setText("-");	*/
+    	
+    	feedback.setText("");
+
+		option1.setVisible(false);
+		option2.setVisible(false);
+		option3.setVisible(false);
+		option4.setVisible(false);
+		
+	   	geography.setVisible(false);
+    	history.setVisible(false);
+    	science.setVisible(false);
     	
     }
     
