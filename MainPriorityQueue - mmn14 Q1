@@ -1,0 +1,41 @@
+
+public class MainPriorityQueue {
+	public static void main(String[] args)
+	{
+		String a = "ben";
+		String b = "sh";
+		String c = "what";
+		String d = "how";
+
+		int queue;
+		String head;
+		GenericPriorityQueue<String> priorQueue = new GenericPriorityQueue<String>(5);
+		priorQueue.add(a, 4);
+		priorQueue.add(b, 3);
+		priorQueue.add(c, 1);
+		priorQueue.add(d, 1);
+		System.out.println(priorQueue.toString());
+		
+		/*head = priorQueue.poll();
+		System.out.println("head + delete : " + head);*/
+		
+		System.out.println(priorQueue.toString());
+		
+		Boolean check = priorQueue.contains("ben");
+		System.out.println("contains: " + check);
+		
+		Boolean remove = priorQueue.remove("sh");
+		System.out.println("remove: " + remove);
+		
+		System.out.println(priorQueue.toString());
+		int sum = priorQueue.size();
+		System.out.println("sum : " + sum);
+		
+		
+
+
+		
+		
+		
+	}
+}
