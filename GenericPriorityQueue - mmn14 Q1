@@ -1,29 +1,24 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
 
-import javax.management.Query;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 
 public class GenericPriorityQueue<T> {
 
 	//final int NUM_OF_PRIORITIES = 10;
-	
 	private int maxPriority;
-	private ArrayList<T> queueOfPriority[];
+	private ArrayList<ArrayList<T>> queueOfPriority;
 	
 	public GenericPriorityQueue(int n)
 	{
 		this.maxPriority = n;
-		//queueOfPriority = (ArrayList<T>[])new ArrayList[n];
-		queueOfPriority = new ArrayList[n];
-		
+		this.queueOfPriority = new ArrayList<ArrayList<T>>(n);
 		
 		// initializing
         for (int i = 0; i < n; i++) {
-        	queueOfPriority[i] = new ArrayList<T>();
+        	this.queueOfPriority.add(new ArrayList<T>());
         }
+		
 	}
 	
 	
@@ -35,58 +30,60 @@ public class GenericPriorityQueue<T> {
 		this.maxPriority = maxPriority;
 	}
 
-	public ArrayList<T>[] getQueueOfPriority() {
+	public ArrayList<ArrayList<T>> getQueueOfPriority() {
 		return queueOfPriority;
 	}
 
-	public void setQueueOfPriority(ArrayList<T>[] queueOfPriority) {
+	public void setQueueOfPriority(ArrayList<ArrayList<T>> queueOfPriority) {
 		this.queueOfPriority = queueOfPriority;
 	}
 
 	public void add(T item , int priorityItem)
 	{
-		if(priorityItem > this.maxPriority)
+		if(priorityItem > getMaxPriority())
 		{
-			queueOfPriority[maxPriority-1].add(item);
+			getQueueOfPriority().get(getMaxPriority()).add(item);
 		}
 		else
 		{
-			queueOfPriority[priorityItem].add(item);
+			getQueueOfPriority().get(priorityItem).add(item);
+
 		}
 	}
 	
 	public T poll()
 	{
 		int i =0;
-		while(getMaxPriority() > i && getQueueOfPriority()[i].size() == 0)
+		while(getMaxPriority() > i && getQueueOfPriority().get(i).size() == 0)
 		{
 			i++;
 		}
 
 		if( i < getMaxPriority())
 		{
-			T head = getQueueOfPriority()[i].get(0);
-			getQueueOfPriority()[i].remove(0);
+			T head = getQueueOfPriority().get(i).get(0);
+			getQueueOfPriority().get(i).remove(0);
 
 			return head;
 		}
 		else
 			return null;
 	}
+	
 	public Boolean contains(T anotherItem)
 	{
 		int i = 0;
 		int j;
 		int equalFlag = 0; // 0 = not find equal item | 1= find equal item
 
-		while(i < this.getMaxPriority() && equalFlag == 0)
+		while(i < getMaxPriority() && equalFlag == 0)
 		{
-			if(this.getQueueOfPriority()[i].size() > 0 )
+			if(getQueueOfPriority().get(i).size() > 0 )
 			{
 				j= 0;
-				while(j < this.getQueueOfPriority()[i].size() && equalFlag == 0)
+				while(j < getQueueOfPriority().get(i).size() && equalFlag == 0)
 				{
-					if(this.getQueueOfPriority()[i].get(j).equals(anotherItem))
+					if(this.getQueueOfPriority().get(i).get(j).equals(anotherItem))
 					{
 						equalFlag = 1;
 					}
@@ -103,7 +100,6 @@ public class GenericPriorityQueue<T> {
 		else
 			return false;
 	}
-	
 	
 	public Boolean remove(T anotherItem)
 	{
@@ -113,15 +109,15 @@ public class GenericPriorityQueue<T> {
 
 		while(i < this.getMaxPriority() && equalFlag == 0)
 		{
-			if(this.getQueueOfPriority()[i].size() > 0 )
+			if(getQueueOfPriority().get(i).size() > 0 )
 			{
 				j= 0;
-				while(j < this.getQueueOfPriority()[i].size() && equalFlag == 0)
+				while(j < getQueueOfPriority().get(i).size() && equalFlag == 0)
 				{
-					if(this.getQueueOfPriority()[i].get(j).equals(anotherItem))
+					if(getQueueOfPriority().get(i).get(j).equals(anotherItem))
 					{
 						equalFlag = 1;
-						getQueueOfPriority()[i].remove(j);
+						getQueueOfPriority().get(i).remove(j);
 					}
 					j++;
 				}
@@ -136,26 +132,30 @@ public class GenericPriorityQueue<T> {
 		else
 			return false;
 	}
-
+	
 	public int size()
 	{
 		int sum = 0;
-		for (int i = 0; i < getQueueOfPriority().length; i++) {
-			sum += getQueueOfPriority()[i].size();
+		int i = 0;
+		while(i < getMaxPriority() )
+		{
+			sum += getQueueOfPriority().get(i).size();
+			i++;
 		}
 		
 		return sum;
 	}
-	
-	/*public int iterator()
+	public Iterator iterator()
 	{
-		this.getQueueOfPriority()[0].iterator();
-	}*/
+		return getQueueOfPriority().iterator();
+	}
+	
+
 	@Override
 	public String toString() {
-		return "maxPriority = " + this.getMaxPriority() + ", queueOfPriority = "
-				+ Arrays.toString(queueOfPriority);
+		return "maxPriority=" + this.getMaxPriority() + ", queueOfPriority=" + this.getQueueOfPriority();
 	}
+	
 	
 	
 }
