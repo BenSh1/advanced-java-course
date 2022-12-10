@@ -1,3 +1,4 @@
+import java.util.Iterator;
 
 public class MainPriorityQueue {
 	public static void main(String[] args)
@@ -6,18 +7,18 @@ public class MainPriorityQueue {
 		String b = "sh";
 		String c = "what";
 		String d = "how";
-
-		int queue;
+		String e = "check";
 		String head;
 		GenericPriorityQueue<String> priorQueue = new GenericPriorityQueue<String>(5);
 		priorQueue.add(a, 4);
 		priorQueue.add(b, 3);
 		priorQueue.add(c, 1);
 		priorQueue.add(d, 1);
+		priorQueue.add(e, 1);
 		System.out.println(priorQueue.toString());
-		
-		/*head = priorQueue.poll();
-		System.out.println("head + delete : " + head);*/
+
+		head = priorQueue.poll();
+		System.out.println("head + delete : " + head);
 		
 		System.out.println(priorQueue.toString());
 		
@@ -26,16 +27,25 @@ public class MainPriorityQueue {
 		
 		Boolean remove = priorQueue.remove("sh");
 		System.out.println("remove: " + remove);
-		
 		System.out.println(priorQueue.toString());
+		
 		int sum = priorQueue.size();
 		System.out.println("sum : " + sum);
 		
-		
+		Iterator outIterator = priorQueue.iterator();
+		Iterator insideIterator;
+		int i= 0;
+		System.out.println("Iterator: ");
+		while(outIterator.hasNext())
+		{
+			insideIterator = priorQueue.getQueueOfPriority().get(i).iterator();
+			while(insideIterator.hasNext())
+			{
+				System.out.println("\t"+insideIterator.next());
+			}
+			i++;
+			outIterator.next();
+		}
 
-
-		
-		
-		
 	}
 }
