@@ -59,10 +59,6 @@ public class TriviaController {
 
     	game.handleFile();
 		
-		System.out.println("size science : " +game.getRepositoryQues().getScienceQuestion().size());
-		System.out.println("size geography : " +game.getRepositoryQues().getGeographyQuestion().size());
-		System.out.println("size history : " +game.getRepositoryQues().getHistoryQuestion().size());
-
 		showQuestion.setText("Choose one option from the category below to get started\nCategory : Science | Geography | History");
 		option1.setText("-");
 		option2.setText("-");
@@ -95,7 +91,6 @@ public class TriviaController {
 			}
 			else
 			{
-
 		    	feedback.setText("Not correct! ,The right answer is :" + list.get(game.getRandomIndexQuestion()).getCorrectAnswer());
 			    game.setScore(game.getScore() - 5);
 			}
