@@ -47,20 +47,21 @@ public class TriviaController {
     @FXML
     private ToolBar holdCategory;
 
+    @FXML
+    private Button finish;
+
     private Game game;
     
-
 	@FXML
 	public void initialize() {
     	
     	game = new Game();
 
-		//importQuestionsFromText();
     	game.handleFile();
 		
-		/*System.out.println("size science : " +game.getRepositoryQues().getScienceQuestion().size());
+		System.out.println("size science : " +game.getRepositoryQues().getScienceQuestion().size());
 		System.out.println("size geography : " +game.getRepositoryQues().getGeographyQuestion().size());
-		System.out.println("size history : " +game.getRepositoryQues().getHistoryQuestion().size());*/
+		System.out.println("size history : " +game.getRepositoryQues().getHistoryQuestion().size());
 
 		showQuestion.setText("Choose one option from the category below to get started\nCategory : Science | Geography | History");
 		option1.setText("-");
@@ -200,6 +201,8 @@ public class TriviaController {
     		option3.setVisible(false);
     		option4.setVisible(false);
     		
+    		finish.setVisible(false);
+    		
         	stateOfAllCategoryButton(false);
     	}
 	}
@@ -290,6 +293,9 @@ public class TriviaController {
 		holdCategory.setVisible(true);
 
 		submit.setVisible(true);
+		
+		finish.setVisible(true);
+
 
 		
     }
@@ -308,6 +314,9 @@ public class TriviaController {
 		option4.setVisible(false);
 		
 		stateOfAllCategoryButton(false);
+		
+		finish.setVisible(false);
+		holdCategory.setVisible(false);
 		
 		submit.setVisible(false);
     }
