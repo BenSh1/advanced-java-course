@@ -9,6 +9,13 @@ import javafx.scene.shape.Line;
 public class HangmanController {
 
 	final int LETTERS  = 26;
+	final int LIMIT_NUMBER_MISTAKES = 5;
+	final int SHOW_HEAD = 1;
+	final int SHOW_CHEST = 2;
+	final int SHOW_RIGHT_ARM = 3;
+	final int SHOW_LEFT_ARM = 4;
+	final int SHOW_RIGHT_LEG = 5;
+	final int SHOW_LEFT_LEG = 6;
 
     @FXML
     private Label guesses;
@@ -67,7 +74,7 @@ public class HangmanController {
     	}
     	else
     	{
-    		if(game.getNumOfGuesses() > 5)
+    		if(game.getNumOfGuesses() > LIMIT_NUMBER_MISTAKES)
         	{
     			feedback.setText("You lost!" + "\nThe right word is : " + game.getRandomWord());
         	}
@@ -93,20 +100,20 @@ public class HangmanController {
                 	}
                 		
             		guesses.setText(stringOfGuesses);
-            		
+
         			switch(game.getNumOfGuesses())
         			{
-        				case 1:head.setVisible(true);
+        				case SHOW_HEAD: head.setVisible(true);
         					   break;
-        				case 2:chest.setVisible(true);
+        				case SHOW_CHEST: chest.setVisible(true);
     						   break;
-        				case 3:rightArm.setVisible(true);
+        				case SHOW_RIGHT_ARM: rightArm.setVisible(true);
     						   break;
-        				case 4:leftArm.setVisible(true);
+        				case SHOW_LEFT_ARM: leftArm.setVisible(true);
     						   break;
-        				case 5:rightLeg.setVisible(true);
+        				case SHOW_RIGHT_LEG: rightLeg.setVisible(true);
     						   break;
-        				case 6:leftLeg.setVisible(true);
+        				case SHOW_LEFT_LEG: leftLeg.setVisible(true);
             					feedback.setText("You lost!" + "\nThe right word is : " + game.getRandomWord());
             					break;
         			}
@@ -119,7 +126,7 @@ public class HangmanController {
     
     private void drawLetterInWord(char letter)
 	{
-		int foundLetterFlag = 0; // 0 = not found a signal letter  , 1 = found one letter
+		int foundLetterFlag = 0; // 0 = not found a single letter  , 1 = found at least one letter
 
 		for(int i = 0; i < game.getRandomWord().length();i++)
     	{
