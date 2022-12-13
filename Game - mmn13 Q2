@@ -4,6 +4,17 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
+	
+    final int HANDLE_TOPIC = 0;
+    final int HANDLE_QUESTION = 1;
+    final int HANDLE_CORRECT_ANSWER = 2;
+    final int HANDLE_FIRST_WRONG_ANSWER = 3;
+    final int HANDLE_SECOND_WRONG_ANSWER = 4;
+    final int HANDLE_THIRD_WRONG_ANSWER = 5;
+    final int ADD_QUESTION = 6;
+    final int OPTION_PER_QUESTION = 4;
+    
+    
     private String chosenTopic;
     private QuestionsRepository repositoryQues;
     private int randomIndexQuestion;
@@ -64,7 +75,7 @@ public class Game {
 		int i = 0;
 		String topic = "";
 		
-		String answersArray[] = new String[4];
+		String answersArray[] = new String[OPTION_PER_QUESTION];
 		for(int k = 0; k <answersArray.length;k++ ){
 			answersArray[k] = "";
 		}
@@ -77,32 +88,33 @@ public class Game {
 				st = input.next();	
 				switch(i)
 				{
-					case 0 : 
+					case HANDLE_TOPIC : 
 						topic = st;
 						break;
-					case 1:
+					case HANDLE_QUESTION : 	
 						question += st + " ";
 						break;
-					case 2:
+					case HANDLE_CORRECT_ANSWER : 
 						answersArray[0] += st + " ";
 						break;
-					case 3:
+					case HANDLE_FIRST_WRONG_ANSWER : 
 						answersArray[1] += st + " ";
 						break;
-					case 4:
+					case HANDLE_SECOND_WRONG_ANSWER : 
 						answersArray[2] += st + " ";
 						break;
-					case 5:
+					case HANDLE_THIRD_WRONG_ANSWER : 
 						answersArray[3] += st + " ";
 						break;
 				}
+				
 				if(st.charAt(st.length()-1) == '?')
 					i++;
 				
 				if(st.charAt(st.length()-1) == '.')
 					i++;
 				
-				if (i == 6)
+				if(i == ADD_QUESTION) 
 				{
 					addQuestion(question , answersArray , topic);
 					i = 0;
