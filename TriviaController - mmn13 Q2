@@ -10,6 +10,11 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 
 public class TriviaController {
+	
+	final int SCORE_CORRECT_ANSWER = 10;
+	final int SCORE_NOT_CORRECT_ANSWER = -5;
+	final int EMPTY_QUESTION_REPOSITORY = 0;
+	final int START_SCORE = 0;
 
     @FXML
     private Label feedback;
@@ -73,12 +78,12 @@ public class TriviaController {
     		if(option1.getText().equals(list.get(game.getRandomIndexQuestion()).getCorrectAnswer())  )
 			{
 		    	feedback.setText("Correct!");
-		    	game.setScore(game.getScore() + 10);
+		    	game.setScore(game.getScore() + SCORE_CORRECT_ANSWER);
 			}
 			else
 			{
 		    	feedback.setText("Not correct! ,The right answer is :" + list.get(game.getRandomIndexQuestion()).getCorrectAnswer());
-		    	game.setScore(game.getScore() - 5);
+		    	game.setScore(game.getScore() + SCORE_NOT_CORRECT_ANSWER);
 			}
 
 		}
@@ -87,12 +92,12 @@ public class TriviaController {
     		if(option2.getText().equals(list.get(game.getRandomIndexQuestion()).getCorrectAnswer())  )
 			{
 		    	feedback.setText("Correct!");
-			    game.setScore(game.getScore() + 10);
+			    game.setScore(game.getScore() + SCORE_CORRECT_ANSWER);
 			}
 			else
 			{
 		    	feedback.setText("Not correct! ,The right answer is :" + list.get(game.getRandomIndexQuestion()).getCorrectAnswer());
-			    game.setScore(game.getScore() - 5);
+			    game.setScore(game.getScore() + SCORE_NOT_CORRECT_ANSWER);
 			}
 		}
     	else if(option3.isSelected())
@@ -100,12 +105,12 @@ public class TriviaController {
 			if(option3.getText().equals(list.get(game.getRandomIndexQuestion()).getCorrectAnswer())  )
     		{
 		    	feedback.setText("Correct!");
-			    game.setScore(game.getScore() + 10);
+			    game.setScore(game.getScore() + SCORE_CORRECT_ANSWER);
 			}
 			else
 			{
 		    	feedback.setText("Not correct! ,The right answer is :" + list.get(game.getRandomIndexQuestion()).getCorrectAnswer());
-			    game.setScore(game.getScore() - 5);
+			    game.setScore(game.getScore() + SCORE_NOT_CORRECT_ANSWER);
 			}
 		}
        	else if(option4.isSelected())
@@ -113,12 +118,12 @@ public class TriviaController {
     		if(option4.getText().equals(list.get(game.getRandomIndexQuestion()).getCorrectAnswer())  )
        		{
 		    	feedback.setText("Correct!");
-    			game.setScore(game.getScore() + 10);
+    			game.setScore(game.getScore() + SCORE_CORRECT_ANSWER);
     		}
     		else
     		{
 		    	feedback.setText("Not correct! ,The right answer is :" + list.get(game.getRandomIndexQuestion()).getCorrectAnswer());
-    		    game.setScore(game.getScore() - 5);
+    		    game.setScore(game.getScore() + SCORE_NOT_CORRECT_ANSWER);
     		}
     	}
     	
@@ -137,7 +142,7 @@ public class TriviaController {
 
 			if(game.getChosenTopic().equals("Science"))
     		{
-    			if(game.getRepositoryQues().getScienceQuestion().size() == 0)
+    			if(game.getRepositoryQues().getScienceQuestion().size() == EMPTY_QUESTION_REPOSITORY)
     			{
     	    		feedback.setText("No question left!");
     			}
@@ -148,7 +153,7 @@ public class TriviaController {
     		}
     		else if(game.getChosenTopic().equals("Geography"))
     		{
-        		if(game.getRepositoryQues().getGeographyQuestion().size() == 0)
+        		if(game.getRepositoryQues().getGeographyQuestion().size() == EMPTY_QUESTION_REPOSITORY)
     			{
     	    		feedback.setText("No question left!");
     			}
@@ -157,7 +162,7 @@ public class TriviaController {
     		}
     		else if(game.getChosenTopic().equals("History"))
     		{
-        		if(game.getRepositoryQues().getHistoryQuestion().size() == 0)
+        		if(game.getRepositoryQues().getHistoryQuestion().size() == EMPTY_QUESTION_REPOSITORY)
     			{
     	    		feedback.setText("No question left!");
     			}
@@ -258,7 +263,7 @@ public class TriviaController {
     void resetPressed(ActionEvent event) {
     	game.handleFile();
     	
-    	game.setScore(0);
+    	game.setScore(START_SCORE);
     	game.setChosenTopic("");
     	feedback.setText("");
     	
