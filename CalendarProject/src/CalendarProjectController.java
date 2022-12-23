@@ -32,6 +32,9 @@ import java.util.Calendar;
 public class CalendarProjectController {
 	
 	final int DAYS_IN_WEEK = 7;
+	final int MAXIMUM_DAYS_IN_MONTH = 31;
+	final int MONTHS = 12;
+	final int BUTTON_WIDTH_SIZE = 80;
 
     @FXML
     private GridPane grid;
@@ -60,13 +63,10 @@ public class CalendarProjectController {
    /* @FXML
     private ToggleGroup options;*/
 
-    
-    //private Button[] btns;
     private Button[] btnsDays;
     final int SIZE = 5;
 
     final int COLUMNS = 7;
-    final int ROWS = 6;
 
     private String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December" };
@@ -83,29 +83,9 @@ public class CalendarProjectController {
     @FXML
     public void initialize() {
     	hash =  new HashMap<Date,String>();
+    	//hash =  new HashMap<Calendar,String>();
     	calendar = Calendar.getInstance();
-    	/*
-    	btnsDays = new Button[ROWS*ROWS];
-    	double w = grid.getPrefWidth()/ROWS;
-    	double h = grid.getPrefHeight()/ROWS; 
-    	    	 
-    	for(int i =0;i<31;i++)
-    	{
-    		btnsDays[i] = new Button((i+1) + "");
-    		btnsDays[i].setPrefSize(w,h);
-    		grid.add(btnsDays[i] ,i % ROWS , i / ROWS);
-    		
-    		btnsDays[i].setOnAction(new EventHandler<ActionEvent>() {
-				
-				@Override
-				public void handle(ActionEvent event) {
-					handleButton(event);
-
-				}
-			});
-			
-    	}
-    	*/
+    	
     	btnsDays = new Button[COLUMNS*COLUMNS];
     	double w = grid.getPrefWidth()/COLUMNS;
     	double h = grid.getPrefHeight()/COLUMNS; 
@@ -135,7 +115,7 @@ public class CalendarProjectController {
         	btnsMonths[i] = new Button(months[i]);
         	//pane.getChildren().add(new Button(months[i]));
         	pane.getChildren().add(btnsMonths[i]);
-        	btnsMonths[i].setPrefWidth(80);
+        	btnsMonths[i].setPrefWidth(BUTTON_WIDTH_SIZE);
         	btnsMonths[i].setOnAction(new EventHandler<ActionEvent>() {
 				
 				@Override
@@ -152,16 +132,19 @@ public class CalendarProjectController {
 
     	yearTitle.setText("2022");//default
     	monthTitle.setText("January");//default
-    	
     	calendar.set(Integer.parseInt(yearTitle.getText()), extractMonthNumber(),1);//default
-    	handleMonthVisibility();
+    	handleMonthVisibility();//default
 
     }
     
 
     private void handleMonthVisibility()
-    {    	
-    	for (int i = 36 ; i >= 31; i--) {
+    {    
+    	for (int i = 0; i < MAXIMUM_DAYS_IN_MONTH; i++) {
+			btnsDays[i].setVisible(true);
+		}
+    	
+    	for (int i = 36 ; i >= MAXIMUM_DAYS_IN_MONTH; i--) {
 			btnsDays[i].setVisible(false);
 		}
 
@@ -171,47 +154,41 @@ public class CalendarProjectController {
     	}
 
     	int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-    	//System.out.println(daysInMonth);
     	
     	if(daysInMonth == 31)
     	{
-
     		btnsDays[30 + calendar.get(Calendar.DAY_OF_WEEK) - 1].setVisible(true);
     		btnsDays[30 + calendar.get(Calendar.DAY_OF_WEEK) - 2].setVisible(true);
-    		
+    		btnsDays[30 + calendar.get(Calendar.DAY_OF_WEEK) - 3].setVisible(true);
     	}
     	else if(daysInMonth == 30)
     	{
     		btnsDays[30 + calendar.get(Calendar.DAY_OF_WEEK) - 1].setVisible(false);
-
+    		btnsDays[30 + calendar.get(Calendar.DAY_OF_WEEK) - 2].setVisible(true);
+    		btnsDays[30 + calendar.get(Calendar.DAY_OF_WEEK) - 3].setVisible(true);
     	}
     	else if(daysInMonth == 29)
     	{
-
     		btnsDays[30 + calendar.get(Calendar.DAY_OF_WEEK) - 1].setVisible(false);
     		btnsDays[30 + calendar.get(Calendar.DAY_OF_WEEK) - 2].setVisible(false);
+    		btnsDays[30 + calendar.get(Calendar.DAY_OF_WEEK) - 3].setVisible(true);
     	}
-    	
     	else //daysInMonth == 28
     	{
-
     		btnsDays[30 + calendar.get(Calendar.DAY_OF_WEEK) - 1].setVisible(false);
     		btnsDays[30 + calendar.get(Calendar.DAY_OF_WEEK) - 2].setVisible(false);
     		btnsDays[30 + calendar.get(Calendar.DAY_OF_WEEK) - 3].setVisible(false);
     	}
 
-    	for (int i = 0 ; i < 7; i++) {
-			btnsDays[i].setVisible(true);
-		}
-    	
     	int i = 0;
     	while(calendar.get(Calendar.DAY_OF_WEEK) != i+1)
     	{
     		btnsDays[i].setVisible(false);
     		i++;
     	}
+    	
     	int counter = 0;
-    	for (int j = calendar.get(Calendar.DAY_OF_WEEK) - 1; j < 31 + calendar.get(Calendar.DAY_OF_WEEK) - 1; j++) {
+    	for (int j = calendar.get(Calendar.DAY_OF_WEEK) - 1; j < MAXIMUM_DAYS_IN_MONTH + calendar.get(Calendar.DAY_OF_WEEK) - 1; j++) {
     		counter++;
     		btnsDays[j].setText(counter + "");
 		}
@@ -244,18 +221,14 @@ public class CalendarProjectController {
     	pause.play();    
     	
     	pickDay.setText(dayC + "");
-    	
-    	Date d = new Date(Integer.parseInt(yearTitle.getText()) , extractMonthNumber(),dayC);
-    	
-    	textArea.setText(hash.get(d));	
     }
     
     private int extractMonthNumber()
     {
     	int currentMonthNum = 0;
-    	while(currentMonthNum < 12 && !(months[currentMonthNum].equals(monthTitle.getText())))
+    	while(currentMonthNum < MONTHS && !(months[currentMonthNum].equals(monthTitle.getText())))
     	{
-    		currentMonthNum++;
+    		currentMonthNum++; 
     	}
     	
     	return currentMonthNum;
@@ -263,18 +236,13 @@ public class CalendarProjectController {
     
     @FXML
     void addPressed(ActionEvent event) {
-    	if(pickDay.getText().equals(""))
+    	if(checkingPickingDay())
     	{
-    		JOptionPane.showMessageDialog(null, "You must choose the day","Error",JOptionPane.ERROR_MESSAGE);
+        	Date d = new Date(Integer.parseInt(yearTitle.getText()) , extractMonthNumber(),dayC);
+        	hash.put(d, textArea.getText());
+        	textArea.setText("");
     	}
-    	
-    	//calendar.set(Integer.parseInt(yearTitle.getText()) , extractMonthNumber(),dayC);
-    	
-    	/*Date d = new Date(Integer.parseInt(yearTitle.getText()) , currentMonthNum,dayC);
-    	hash.put(d, textArea.getText());*/
 
-    	//hash.put(Calendar, textArea.getText());
-    	//textArea.setText("");
     	
     	//addClosingEvent();
     }
@@ -282,21 +250,22 @@ public class CalendarProjectController {
 
     @FXML
     void showPressed(ActionEvent event) {
-    	//Date d = new Date(, ROWS, COLUMNS)
-    	//Calendar c = new Calendar(yearTitle.getText()  ,monthTitle.getText() ,10 );
+    	if(checkingPickingDay())
+    	{
+        	Date d = new Date(Integer.parseInt(yearTitle.getText()) , extractMonthNumber(),dayC);
+        	textArea.setText(hash.get(d));	
+    	}
+
+    }
+    
+    private Boolean checkingPickingDay()
+    {
     	if(pickDay.getText().equals(""))
     	{
     		JOptionPane.showMessageDialog(null, "You must choose the day","Error",JOptionPane.ERROR_MESSAGE);
+    		return false;
     	}
-    	
-    	
-    	//calendar.set(Integer.parseInt(yearTitle.getText()) , extractMonthNumber(),dayC);
-
-    	//Date d = new Date(Integer.parseInt(yearTitle.getText()) ,  extractMonthNumber(),dayC);
-
-    	
-    	//textArea.setText(hash.get(Date));
-    	//textArea.setText(hash.get(d));	
+    	return true;
     }
     
     /*
@@ -367,6 +336,9 @@ public class CalendarProjectController {
     @FXML
     void submitPressed(ActionEvent event) {
     	yearTitle.setText(yearC.getValue());
+    	calendar.set(Integer.parseInt(yearTitle.getText()), extractMonthNumber(),1);
+    	handleMonthVisibility();
+    	
     }
 
 	private void initCombobox()
