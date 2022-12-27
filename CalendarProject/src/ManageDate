@@ -1,0 +1,60 @@
+import java.util.Calendar;
+import java.util.HashMap;
+
+public class ManageDate {
+    private int dayC;
+    private Calendar calendar;
+
+    private String[] months={ "January", "February", "March", "April", "May", "June", "July", "August",
+			"September","October", "November", "December" }; 
+    
+    private HashMap<Date, String> hash;
+
+	public ManageDate( ) {
+
+		this.calendar = Calendar.getInstance();
+		this.dayC = 0;
+		this.hash = new HashMap<Date,String>();
+	
+		
+	}
+	
+	public Calendar getCalendar() {
+		return calendar;
+	}
+
+
+
+	public void setCalendar(int Year , int month , int day) {
+    	this.calendar.set(Year, month,day);
+	}
+
+
+
+	public int getDayC() {
+		return dayC;
+	}
+
+	public void setDayC(int dayC) {
+		this.dayC = dayC;
+	}
+
+	public String[] getMonths() {
+		return months;
+	}
+
+	public void setMonths(String[] months) {
+		this.months = months;
+	}
+
+	public HashMap<Date, String> getHash() {
+		return hash;
+	}
+
+	public void setHash(HashMap<Date, String> hash) {
+		this.hash = hash;
+	}
+
+    
+
+}
