@@ -20,7 +20,10 @@ public class CalendarProjectController {
 	final int DAYS_IN_WEEK = 7;
 	final int MAXIMUM_DAYS_IN_MONTH = 31;
 	final int BUTTON_WIDTH_SIZE = 80;
-	
+	final int NUM_OF_MONTHS = 12;
+    final int SIZE = 7;
+    final int DEFAULT_YEAR_VALUE = 2022;
+    
     @FXML
     private Label isSave;
 
@@ -49,11 +52,6 @@ public class CalendarProjectController {
     private Label pickDay;
     
     private Button[] btnsDays;
-
-    final int SIZE = 7;
-
-	final int NUM_OF_MONTHS = 12;
-
 
     private Button[] btnsMonths;
     
@@ -105,6 +103,9 @@ public class CalendarProjectController {
     	initCombobox();
     	yearTitle.setText("2022");//default
     	monthTitle.setText("January");//default
+    	pickDay.setText(manageDate.getDayC() + "/" + 1 + "/" + DEFAULT_YEAR_VALUE);
+    	manageDate.setCalendar(DEFAULT_YEAR_VALUE, 0, 1);
+
     	handleMonthVisibility();//default
     }
     
@@ -190,7 +191,8 @@ public class CalendarProjectController {
     	yearTitle.setText(yearC.getValue());
     	
     	manageDate.setCalendar(Integer.parseInt(yearTitle.getText()), extractMonthNumber(),manageDate.getDayC());//newClass
-
+    	
+    	
     	b.setStyle("-fx-base: lightgreen");
     	PauseTransition pause = new PauseTransition(
     	    Duration.seconds(1)
@@ -203,7 +205,6 @@ public class CalendarProjectController {
     	pause.play();    
 
     	pickDay.setText(manageDate.getDayC() + "/" + (extractMonthNumber()+1) + "/" + yearC.getValue());
-
     	restartElementsText();
     }
 
@@ -272,7 +273,7 @@ public class CalendarProjectController {
     	{
     		yearC.getItems().add(i+ "");
     	}
-    	yearC.setValue("2022");
+    	yearC.setValue(DEFAULT_YEAR_VALUE + "");
 	}
     
     
