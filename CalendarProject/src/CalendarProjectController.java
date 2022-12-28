@@ -103,18 +103,12 @@ public class CalendarProjectController {
     	
         
     	initCombobox();
-    	/*
-    	yearTitle.setText("2022");//default
-    	monthTitle.setText("January");//default
-    	pickDay.setText(manageDate.getDayC() + "/" + 1 + "/" + DEFAULT_YEAR_VALUE);
-    	manageDate.setCalendar(DEFAULT_YEAR_VALUE, 0, 1);*/
+
     	yearTitle.setText("2022");//default
     	monthTitle.setText("December");//default
     	pickDay.setText(manageDate.getDayC() + "/" + (DEFAULT_MONTH_VALUE + 1) + "/" + DEFAULT_YEAR_VALUE);
     	manageDate.setCalendar(DEFAULT_YEAR_VALUE, DEFAULT_MONTH_VALUE,DEFAULT_DAY_VALUE);
     	
-    	
-
     	handleMonthVisibility();//default
     }
     
@@ -184,8 +178,8 @@ public class CalendarProjectController {
     	monthTitle.setText(b.getText());
     	yearTitle.setText(yearC.getValue());
 
-    	manageDate.setCalendar(Integer.parseInt(yearC.getValue()), extractMonthNumber(),1);//newClass
-    	
+    	manageDate.setCalendar(Integer.parseInt(yearC.getValue()), manageDate.extractMonthNumber(monthTitle.getText()),1);
+
     	handleMonthVisibility();
     	pickDay.setText("--/--/----");
     	restartElementsText();
@@ -199,47 +193,36 @@ public class CalendarProjectController {
     private void handleButton(ActionEvent event) {
     	Button b = (Button)event.getSource();
     	manageDate.setDayC(Integer.parseInt(b.getText()));
-
+    	
+    	int numberMonth;
+    	numberMonth = manageDate.extractMonthNumber(monthTitle.getText());
+    	
     	yearTitle.setText(yearC.getValue());
     	
-    	manageDate.setCalendar(Integer.parseInt(yearTitle.getText()), extractMonthNumber(),manageDate.getDayC());//newClass
-    	
+    	manageDate.setCalendar(Integer.parseInt(yearTitle.getText()), numberMonth,manageDate.getDayC());
+
     	
     	b.setStyle("-fx-base: lightgreen");
-    	PauseTransition pause = new PauseTransition(
-    	    Duration.seconds(1)
-    	);
-    	pause.setOnFinished(event1 -> 
-    	{
+    	PauseTransition pause = new PauseTransition(Duration.seconds(1));
+    	
+    	pause.setOnFinished(event1 -> {
     	    b.setStyle(null);
-    	}
-    	);
+    	});
+    	
     	pause.play();    
 
-    	pickDay.setText(manageDate.getDayC() + "/" + (extractMonthNumber()+1) + "/" + yearC.getValue());
+    	pickDay.setText(manageDate.getDayC() + "/" + (numberMonth + 1) + "/" + yearC.getValue());
+
     	restartElementsText();
     }
 
-    
-    private int extractMonthNumber()
-    {
-    	int currentMonthNum = 0;
-    	
-    	while(currentMonthNum < NUM_OF_MONTHS && !(manageDate.getMonths()[currentMonthNum].equals(monthTitle.getText())))
-    	{
-    		currentMonthNum++; 
-    	}
-    	
-    	return currentMonthNum;
-    }
-    
     @FXML
     void addPressed(ActionEvent event) {
     	if(checkingPickingDay())
     	{
         	Date d = new Date(manageDate.getCalendar().get(Calendar.YEAR),manageDate.getCalendar().get(Calendar.MONTH),manageDate.getCalendar().get(Calendar.DAY_OF_MONTH));
 
-        	manageDate.setCalendar(Integer.parseInt(yearTitle.getText()), extractMonthNumber(),manageDate.getDayC());//newClass
+        	manageDate.setCalendar(Integer.parseInt(yearC.getValue()), manageDate.extractMonthNumber(monthTitle.getText()),manageDate.getDayC() );
 
         	manageDate.getHash().put(d, textArea.getText());
         	isSave.setText("Saved!");
@@ -270,7 +253,7 @@ public class CalendarProjectController {
     void submitPressed(ActionEvent event) {
     	yearTitle.setText(yearC.getValue());
     	manageDate.setDayC(1);
-    	manageDate.setCalendar(Integer.parseInt(yearC.getValue()), extractMonthNumber(),manageDate.getDayC() );//newClass
+    	manageDate.setCalendar(Integer.parseInt(yearC.getValue()), manageDate.extractMonthNumber(monthTitle.getText()),manageDate.getDayC() );
 
     	handleMonthVisibility();
     	pickDay.setText("--/--/----");
@@ -287,6 +270,4 @@ public class CalendarProjectController {
     	}
     	yearC.setValue(DEFAULT_YEAR_VALUE + "");
 	}
-    
-    
 }
