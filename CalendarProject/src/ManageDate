@@ -13,23 +13,17 @@ public class ManageDate {
 	public ManageDate( ) {
 
 		this.calendar = Calendar.getInstance();
-		this.dayC = 0;
+		this.dayC = 1;
 		this.hash = new HashMap<Date,String>();
-	
-		
 	}
 	
 	public Calendar getCalendar() {
 		return calendar;
 	}
 
-
-
 	public void setCalendar(int Year , int month , int day) {
     	this.calendar.set(Year, month,day);
 	}
-
-
 
 	public int getDayC() {
 		return dayC;
@@ -54,6 +48,23 @@ public class ManageDate {
 	public void setHash(HashMap<Date, String> hash) {
 		this.hash = hash;
 	}
+	
+	public int extractMonthNumber(String currentMonth)
+	{
+		return extract(currentMonth);
+	}
+	
+    private int extract(String currentMonthString)
+    {
+    	final int NUM_OF_MONTHS = 12;
+    	int currentMonthNum = 0;
+    	
+    	while(currentMonthNum < NUM_OF_MONTHS && !(getMonths()[currentMonthNum].equals(currentMonthString)))
+    	{
+    		currentMonthNum++; 
+    	}
+    	return currentMonthNum;
+    }
 
     
 
