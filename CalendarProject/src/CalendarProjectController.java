@@ -23,7 +23,9 @@ public class CalendarProjectController {
 	final int NUM_OF_MONTHS = 12;
     final int SIZE = 7;
     final int DEFAULT_YEAR_VALUE = 2022;
-    
+    final int DEFAULT_MONTH_VALUE = 11;
+    final int DEFAULT_DAY_VALUE = 1;
+
     @FXML
     private Label isSave;
 
@@ -101,10 +103,17 @@ public class CalendarProjectController {
     	
         
     	initCombobox();
+    	/*
     	yearTitle.setText("2022");//default
     	monthTitle.setText("January");//default
     	pickDay.setText(manageDate.getDayC() + "/" + 1 + "/" + DEFAULT_YEAR_VALUE);
-    	manageDate.setCalendar(DEFAULT_YEAR_VALUE, 0, 1);
+    	manageDate.setCalendar(DEFAULT_YEAR_VALUE, 0, 1);*/
+    	yearTitle.setText("2022");//default
+    	monthTitle.setText("December");//default
+    	pickDay.setText(manageDate.getDayC() + "/" + (DEFAULT_MONTH_VALUE + 1) + "/" + DEFAULT_YEAR_VALUE);
+    	manageDate.setCalendar(DEFAULT_YEAR_VALUE, DEFAULT_MONTH_VALUE,DEFAULT_DAY_VALUE);
+    	
+    	
 
     	handleMonthVisibility();//default
     }
@@ -170,10 +179,10 @@ public class CalendarProjectController {
     private void handleButtonMonths(ActionEvent event) {
     	Button b = (Button)event.getSource();
     	monthTitle.setText(b.getText());
-
-    	manageDate.setCalendar(Integer.parseInt(yearTitle.getText()), extractMonthNumber(),1);//newClass
-    	
     	yearTitle.setText(yearC.getValue());
+
+    	manageDate.setCalendar(Integer.parseInt(yearC.getValue()), extractMonthNumber(),1);//newClass
+    	
     	handleMonthVisibility();
     	pickDay.setText("--/--/----");
     	restartElementsText();
@@ -257,8 +266,8 @@ public class CalendarProjectController {
     @FXML
     void submitPressed(ActionEvent event) {
     	yearTitle.setText(yearC.getValue());
-    	
-    	manageDate.setCalendar(Integer.parseInt(yearTitle.getText()), extractMonthNumber(),manageDate.getDayC() );//newClass
+    	manageDate.setDayC(1);
+    	manageDate.setCalendar(Integer.parseInt(yearC.getValue()), extractMonthNumber(),manageDate.getDayC() );//newClass
 
     	handleMonthVisibility();
     	pickDay.setText("--/--/----");
@@ -268,7 +277,7 @@ public class CalendarProjectController {
 	private void initCombobox()
 	{
 		yearC.setPrefWidth(80);
-    	final int START_YEAR = 1970, END_YEAR = 2050 ;
+    	final int START_YEAR = 1985, END_YEAR = 2050 ;
     	for(int i = START_YEAR; i <= END_YEAR;i++)
     	{
     		yearC.getItems().add(i+ "");
