@@ -121,21 +121,22 @@ public class CalendarProjectController {
 
     private void handleMonthVisibility()
     {    
+    	//at start show every day from day 1(button = 0) until the day 31 (button = 30) 
     	for (int i = 0; i < MAXIMUM_DAYS_IN_MONTH; i++) {
 			btnsDays[i].setVisible(true);
 		}
-    	
+    	//at start NOT show days from day 32(button = 31) until the day 37 (button = 36) 
     	for (int i = 36 ; i >= MAXIMUM_DAYS_IN_MONTH; i--) {
 			btnsDays[i].setVisible(false);
 		}
-    	
+    	//on last days in month reveal those days that the user need to see it's depend on which day the month beginning
     	for(int i = 30; i < 30 + manageDate.getCalendar().get(Calendar.DAY_OF_WEEK); i++)
     	{
 			btnsDays[i].setVisible(true);
     	}
-
+    	//checking how many days there are in the month
     	int daysInMonth = manageDate.getCalendar().getActualMaximum(Calendar.DAY_OF_MONTH);
-
+    	//reveal and not reveal specific days at the end of the month [29,31]
     	if(daysInMonth == 31)
     	{
     		btnsDays[30 + manageDate.getCalendar().get(Calendar.DAY_OF_WEEK) - 1].setVisible(true);
@@ -154,7 +155,7 @@ public class CalendarProjectController {
     		btnsDays[30 + manageDate.getCalendar().get(Calendar.DAY_OF_WEEK) - 2].setVisible(false);
     		btnsDays[30 + manageDate.getCalendar().get(Calendar.DAY_OF_WEEK) - 3].setVisible(true);
     	}
-    	else //daysInMonth == 28
+    	else //daysInMonth == 28, meaning there are exactly 28 days in the month
     	{
     		btnsDays[30 + manageDate.getCalendar().get(Calendar.DAY_OF_WEEK) - 1].setVisible(false);
     		btnsDays[30 + manageDate.getCalendar().get(Calendar.DAY_OF_WEEK) - 2].setVisible(false);
@@ -162,6 +163,7 @@ public class CalendarProjectController {
     	}
 
     	int i = 0;
+    	//not reveal specific days at the starts of the month [1,6] ,it's depend on which day the month beginning
         while(manageDate.getCalendar().get(Calendar.DAY_OF_WEEK) != i+1)
     	{
     		btnsDays[i].setVisible(false);
@@ -169,6 +171,7 @@ public class CalendarProjectController {
     	}
     	
     	int counter = 0;
+    	//adaptation the counting of every button , start with 1 and end with the correct number which the month end at
     	for (int j = manageDate.getCalendar().get(Calendar.DAY_OF_WEEK) - 1; j < MAXIMUM_DAYS_IN_MONTH + manageDate.getCalendar().get(Calendar.DAY_OF_WEEK) - 1; j++) {
     		counter++;
     		btnsDays[j].setText(counter + "");
