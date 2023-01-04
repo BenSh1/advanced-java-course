@@ -12,7 +12,7 @@ public class BankAccount {
 	public synchronized void transaction(int operationNum)
 	{
 		
-		System.out.println("Account " + this.getAccountNumber() + " is trying to transaction with the number "
+		System.out.println("Account " + this.getAccountNumber() + " is wanting to transaction with the number "
 		+operationNum);
 		if(operationNum < 0)
 		{
@@ -29,66 +29,14 @@ public class BankAccount {
 		}
 		
 		this.balance += operationNum;
-		System.out.println("The num of account is : "+this.getAccountNumber() 
-		+ ", the transaction is : " + operationNum
-		+ ", and the balance is : " + this.getBalance());
+		System.out.println("finished transaction of Account "+this.getAccountNumber() + ": The transaction is " + operationNum
+		+ "\n \t\t\t           The balance now is " + this.getBalance());
 		
 		notifyAll();
-		/*
-		if(operationNum > 0)
-		{
-			
-		}*/
 
-		/*
-		else
-		{
-			this.balance += operationNum;
-
-		}*/
-		
-		
-		
-		/*
-		if(operationNum >= 0)
-		{
-			this.balance += operationNum;
-			
-		}
-		else
-		{
-			int oppositeNumber = (-1)*operationNum;
-			
-			while(this.balance < oppositeNumber )
-			{
-				try {
-					wait();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			this.balance += operationNum;
-		}
-		*/
-		
-		//System.out.println("The new balance is : " + getBalance());
-		
-		/*
-		if(operationNum > 0)
-		{
-			this.balance += operationNum;
-		}
-		else
-		{
-			this.balance -= operationNum;
-
-		}*/
 	}
 
 	public int getBalance() {
-		//notifyAll();
 		return balance;
 	}
 
