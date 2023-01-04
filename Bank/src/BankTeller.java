@@ -2,9 +2,9 @@
 public class BankTeller extends Thread{
 
 	private BankTransactionData myTransactionData;
-	private BankAccount bankAccounts;
-	
-	public BankTeller(BankAccount otherBankAccounts ,BankTransactionData otherTransactionData)
+	private BankAccount[] bankAccounts;
+
+	public BankTeller(BankAccount[] otherBankAccounts ,BankTransactionData otherTransactionData)
 	{
 		this.myTransactionData = otherTransactionData;
 		this.bankAccounts = otherBankAccounts;
@@ -20,11 +20,10 @@ public class BankTeller extends Thread{
 		{
 			
 			Transactions t = this.myTransactionData.retrieveTransaction();
-			this.bankAccounts.transaction(t.getOperationNum());
-			
-			/*System.out.println("The num of account is : "+this.bankAccounts.getAccountNumber() 
-			+ ", the transaction is : " + t.getOperationNum()
-			+ ", and the balance is : " + this.bankAccounts.getBalance());*/
+			if(t != null)
+			{
+				this.bankAccounts[t.getBankAccount()].transaction(t.getOperationNum());
+			}
 			
 			try {
 				sleep((int)Math.random()*100000);
