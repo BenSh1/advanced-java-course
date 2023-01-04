@@ -12,7 +12,8 @@ public class BankTransactionData {
 	{
 		Transactions temp;
 		
-		if(transactions.get(0) != null)
+		//if(transactions.get(0) != null)
+		if(transactions.size() != 0)
 		{
 			temp = transactions.get(0);
 			transactions.remove(0);
