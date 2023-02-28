@@ -1,0 +1,169 @@
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Game {
+	
+    final int HANDLE_TOPIC = 0;
+    final int HANDLE_QUESTION = 1;
+    final int HANDLE_CORRECT_ANSWER = 2;
+    final int HANDLE_FIRST_WRONG_ANSWER = 3;
+    final int HANDLE_SECOND_WRONG_ANSWER = 4;
+    final int HANDLE_THIRD_WRONG_ANSWER = 5;
+    final int ADD_QUESTION = 6;
+    final int OPTION_PER_QUESTION = 4;
+    
+    
+    private String chosenTopic;
+    private QuestionsRepository repositoryQues;
+    private int randomIndexQuestion;
+    private int score;
+    
+	public Game()
+	{
+		this.chosenTopic = new String();
+		this.repositoryQues = new QuestionsRepository();
+		this.randomIndexQuestion = 0;
+		this.score = 0;
+	}
+
+
+
+	public QuestionsRepository getRepositoryQues() {
+		return repositoryQues;
+	}
+
+	public void setRepositoryQues(QuestionsRepository repositoryQues) {
+		this.repositoryQues = repositoryQues;
+	}
+	
+	public String getChosenTopic() {
+		return chosenTopic;
+	}
+
+	public void setChosenTopic(String chosenTopic) {
+		this.chosenTopic = chosenTopic;
+	}
+	
+	public int getRandomIndexQuestion() {
+		return randomIndexQuestion;
+	}
+
+	public void setRandomIndexQuestion(int randomIndexQuestion) {
+		this.randomIndexQuestion = randomIndexQuestion;
+	}
+	
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	public void handleFile()
+	{
+		importQuestionsFromText();
+	}
+	
+	
+    private void importQuestionsFromText()
+    {
+		String st = new String();
+		String question = "";
+		int i = 0;
+		String topic = "";
+		
+		String answersArray[] = new String[OPTION_PER_QUESTION];
+		for(int k = 0; k <answersArray.length;k++ ){
+			answersArray[k] = "";
+		}
+		
+    	try
+		{
+			Scanner input = new Scanner(new File("triva.txt"));
+			while(input.hasNext())
+			{
+				st = input.next();	
+				switch(i)
+				{
+					case HANDLE_TOPIC : 
+						topic = st;
+						break;
+					case HANDLE_QUESTION : 	
+						question += st + " ";
+						break;
+					case HANDLE_CORRECT_ANSWER : 
+						answersArray[0] += st + " ";
+						break;
+					case HANDLE_FIRST_WRONG_ANSWER : 
+						answersArray[1] += st + " ";
+						break;
+					case HANDLE_SECOND_WRONG_ANSWER : 
+						answersArray[2] += st + " ";
+						break;
+					case HANDLE_THIRD_WRONG_ANSWER : 
+						answersArray[3] += st + " ";
+						break;
+				}
+				
+				if(st.charAt(st.length()-1) == '?')
+					i++;
+				
+				if(st.charAt(st.length()-1) == '.')
+					i++;
+				
+				if(i == ADD_QUESTION) 
+				{
+					addQuestion(question , answersArray , topic);
+					i = 0;
+					question = "";
+					for(int k = 0; k <answersArray.length;k++ ){
+						answersArray[k] = "";
+					}
+				}	
+			}
+			input.close();
+		}
+		catch(IOException e){
+			System.out.println("Error" );
+		}
+    }
+    
+    private void addQuestion(String question,String answersArray[],String topic)
+    {
+    	Question quest;
+    	String correctAnswer = answersArray[0];
+		suffleArray(answersArray);
+		quest = new Question(question, answersArray[0], answersArray[1], answersArray[2],answersArray[3], correctAnswer);
+
+		if(topic.equals("science."))
+		{
+			this.getRepositoryQues().getScienceQuestion().add(quest);
+		}
+		else if(topic.equals("geography.") )
+		{
+			this.getRepositoryQues().getGeographyQuestion().add(quest);
+		}
+		else if(topic.equals("history."))
+		{
+			this.getRepositoryQues().getHistoryQuestion().add(quest);
+		}
+    }
+    
+	private static void suffleArray(String arr[]) {
+		
+		Random rand = new Random();
+		int randomIndexToSwap ;
+		String temp;
+		for (int j = 0; j < arr.length; j++) {
+			randomIndexToSwap =rand.nextInt(arr.length );
+			temp = arr[randomIndexToSwap];
+			arr[randomIndexToSwap] = arr[j];
+			arr[j] = temp;
+		}
+		
+	}
+	
+}

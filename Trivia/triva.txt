@@ -1,0 +1,360 @@
+
+science.
+Which animal lays eggs?
+Duck.
+Dog.
+Cat.
+Sheep.
+
+
+
+
+science.
+A male cow is called?
+Ox.
+Dog.
+Sheep.
+Monkey.
+
+science.
+Which one is a fur-bearing animal?
+Cat.
+Hen.
+Crocodile.
+Tortoise.
+
+science.
+What is Earth is only natural satellite?
+Moon.
+Sun.
+Mars.
+Venus.
+
+
+science.
+What part of the body helps you move?
+Muscles.
+Eyes.
+Lungs.
+Pancreas.
+
+science.
+The two holes of the nose are called?
+Nostrils.
+Eyelids.
+Nails.
+Hair.
+
+science.
+What star shines in the day and provides light?
+Sun.
+Moon.
+Venus.
+Mars.
+
+
+science.
+Which organ covers the entire body and protects it?
+Skin.
+Liver.
+Heart.
+Brain.
+
+science.
+Which shape is a round?
+Circle.
+Rectangle.
+Square.
+Triangle.
+
+science.
+Who invented the first functional telephone?
+Alexander Graham Bell.
+Albert Einstein.
+Nikola Tesla.
+Thomas Alva Edison.
+
+science.
+What is the young one of a cow called?
+Puppy.
+Kitten.
+Calf.
+Baby.
+
+science.
+Which part of the bird lets it fly high in the sky?
+Wings.
+Beak.
+Feet.
+Claws.
+
+science.
+What is the largest star in the solar system?
+The sun.
+Mars.
+Venus.
+Jupiter.
+
+science.
+How long does a solar eclipse last?
+About seven and a half minutes.
+About nine and a half minutes.
+About seventeen and a half minutes.
+About ten and a half minutes.
+
+science.
+What color is the sunset on Mars?
+Blue.
+Red.
+Green.
+Yellow.
+
+science.
+What kind of blood type is known as the universal donor?
+O negative.
+A.
+B.
+AB.
+
+science.
+What is considered room temperature?
+72 degrees Fahrenheit.
+50 degrees Fahrenheit.
+58 degrees Fahrenheit.
+120 degrees Fahrenheit.
+
+science.
+How many states of matter are there?
+Four.
+Three.
+Five.
+Ten.
+
+
+
+geography.
+In which Italian city can you find the Colosseum?
+Rome.
+Venice.
+Naples.
+Milan.
+
+geography.
+How long is the border between the United States and Canada?
+5,525 miles.
+3,525 miles.
+4,525 miles.
+6,525 miles.
+
+geography.
+What is the largest active volcano in the world?
+Mouna Loa.
+Mount Etna.
+Mount Vesuvius.
+Mount Batur.
+
+geography.
+What is the capital of Italy?
+Rome.
+Venice.
+Florence.
+Naples.
+
+geography.
+Which river flows through London?
+River Thames.
+River Severn.
+River Trent.
+River Great Ouse.
+
+geography.
+On which continent is the Sahara Desert located?
+North Africa.
+Asia.
+South America.
+Europe.
+
+geography.
+How tall is Mount Everest?
+8,849 m.
+6,849 m.
+7,849 m.
+9,849 m.
+
+geography.
+In which US state can you find the city of Chicago?
+Illinois.
+Mississippi.
+Missouri.
+Arizona.
+
+geography.
+What is the capital of ​​the United Arab Emirates?
+Abu Dhabi.
+Dubai.
+Sharjah.
+Ajman.
+
+geography.
+What is the southernmost capital city in the world?
+Wellington.
+Canberra.
+Buenos Aires.
+Jakarta.
+
+geography.
+What is the smallest country in the world?
+Vatican City.
+Andorra.
+Luxembourg.
+Belgium.
+
+geography.
+What is the highest mountain in Scotland?
+Ben Nevis.
+Ben Macdui.
+Braeriach.
+Cairn Toul.
+
+geography.
+How many countries are there in the world?
+195.
+105.
+145.
+245.
+
+geography.
+What is the longest river in the world?
+The Nile.
+Amazon River.
+Yangtze River.
+Yellow River.
+
+geography.
+What is the highest mountain in Japan?
+Mount Fuji.
+Mount Kita.
+Mount Okuhotaka.
+Mount Aino.
+
+geography.
+In which country is Mount Kilimanjaro?
+Tanzania.
+Kenya.
+Congo.
+Nigeria.
+
+
+
+history.
+When did Lenin die?
+21 January 1924.
+21 January 1934.
+21 January 1944.
+21 January 1954.
+
+
+
+
+history.
+In which US state did the ​​Scopes Monkey Trial happen?
+Tennessee.
+Maryland.
+South Dakota.
+Indiana.
+
+history.
+When was the book “To Kill a Mockingbird” by Harper Lee published?
+1960.
+1950.
+1970.
+1980.
+
+
+history.
+The United States bought Alaska from which country?
+Russia.
+Israel.
+Ukraine.
+France.
+
+history.
+Who was the fourth president of the United States?
+James Madison.
+George Washington.
+John Adams.
+Thomas Jefferson.
+
+history.
+Which year was George H'W' Bush elected president?
+1988.
+2022.
+1990.
+1980.
+
+history.
+In what year did child labor laws start in the United States?
+1938.
+2003.
+1951.
+1930.
+
+history.
+Who said “Egypt is the gift of Nile”?
+Herodotus.
+Sallust.
+Aristotle.
+Arrian.
+
+history.
+Which of the following was main occupation of ancient Greeks?
+Agriculture.
+Sea Trade.
+Mining.
+Animal Rearing.
+
+history.
+What was the shortest war in human history?
+The war between England and Zanzibar.
+The war between England and France.
+The war between America and Russia.
+The war between Spain and Portugal.
+
+history.
+How long did the war between England and Zanzibar last?
+Between 38 & 45 minutes.
+Between180 & 500 minutes.
+Between 9 & 43 minutes.
+Between 1000 & 1562 minutes.
+
+history.
+How many years did the 100 years war last?
+116 years.
+58 years.
+22 years.
+405 years.
+
+history.
+In which year did Hitler commit suicide?
+1945.
+1951.
+1947.
+1972.
+
+history.
+In which year was John F Kennedy assassinated?
+1963.
+1947.
+1958.
+1969.
+
+history.
+Greenland was a colony of which country until 1981?
+Denmark.
+Britain.
+France.
+Spain.
+
+
+
+
