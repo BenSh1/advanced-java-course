@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PicsController">
+   <children>
+      <AnchorPane prefHeight="57.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="nameOfImage" alignment="CENTER" contentDisplay="CENTER" layoutX="225.0" layoutY="10.0" prefHeight="32.0" prefWidth="165.0" text="Label">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="img" fitHeight="307.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
+      <HBox alignment="CENTER" prefHeight="83.0" prefWidth="600.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#jumpTo" text="Jump" />
+            <Button mnemonicParsing="false" onAction="#goNext" text="Next" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
