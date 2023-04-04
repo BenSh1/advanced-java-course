@@ -24,11 +24,11 @@ public class BankTransactionData {
 		
 	}
 
-	public ArrayList<Transactions> getTransactions() {
+	public synchronized ArrayList<Transactions> getTransactions() {
 		return transactions;
 	}
 
-	public void setTransactions(ArrayList<Transactions> transactions) {
+	public synchronized void setTransactions(ArrayList<Transactions> transactions) {
 		this.transactions = transactions;
 	}
 	

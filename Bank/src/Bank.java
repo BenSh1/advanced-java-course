@@ -6,7 +6,7 @@ public class Bank {
 	public static void main(String[] args) {
 		final int MAX_MONEY_PER_OPERATION = 1000;
 		final int NUMBER_OF_ACCOUNTS = 5;
-		final int NUMBER_OF_TRANSACTIONS = 10;
+		final int NUMBER_OF_TRANSACTIONS = 15;
 		final int NUM_OF_TELLERS = 10;
 
 		BankAccount accounts[] = new BankAccount[NUMBER_OF_ACCOUNTS];
@@ -47,9 +47,17 @@ public class Bank {
 		for (int i = 0; i < NUM_OF_TELLERS; i++) {
 			tellers[i] = new BankTeller(accounts, bankTransactionData);
 		}
-		
+
 		for (int i = 0; i < NUM_OF_TELLERS; i++) {
 			tellers[i].start();
+		}
+		for (int i = 0; i < NUM_OF_TELLERS; i++) {
+			try {
+				tellers[i].join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
         System.out.println("DONE!");

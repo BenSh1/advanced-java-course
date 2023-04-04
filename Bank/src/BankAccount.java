@@ -11,9 +11,9 @@ public class BankAccount {
 	
 	public synchronized void transaction(int operationNum)
 	{
-		
-		System.out.println("Account " + this.getAccountNumber() + " is wanting to transaction with the number "
-		+operationNum);
+        System.out.println(Thread.currentThread().getName() +" Account " + this.getAccountNumber() + 
+				" is wanting to transaction with the number "+operationNum);
+
 		if(operationNum < 0)
 		{
 			int oppositeNumber = (-1)*operationNum;
@@ -29,14 +29,17 @@ public class BankAccount {
 		}
 		
 		this.balance += operationNum;
-		System.out.println("finished transaction of Account "+this.getAccountNumber() + ": The transaction is " + operationNum
-		+ "\n \t\t\t           The balance now is " + this.getBalance());
+		
+		System.out.println(Thread.currentThread().getName() +" finished transaction of Account "+this.getAccountNumber() + ": The transaction is " + operationNum
+		+ "\n \t\t\t\t            The balance now is " + this.getBalance());
+		
+
 		
 		notifyAll();
 
 	}
 
-	public int getBalance() {
+	public synchronized int getBalance() {
 		return balance;
 	}
 
