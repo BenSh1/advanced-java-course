@@ -23,7 +23,7 @@ public class Main {
 		for (int i = 0; i < NUM_OF_WORKERS; i++) {
 			arrThread[i].start();
 		}
-		
+		/*
 		for (int i = 0; i < NUM_OF_WORKERS; i++) {
 			try {
 				arrThread[i].join();
@@ -31,13 +31,16 @@ public class Main {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-
+		}*/
+		
+		rPool.waitForAll();
+		
 		for (int i = 0; i < NUM_OF_RESOURCE; i++) {
 			System.out.println("The number of times that resource id "+ (i+1) + 
 					" is allocate " + rPool.getUseCount(i));
-			
 		}
+		
+		System.out.println("MAIN DONE");
 		
 	}
 
