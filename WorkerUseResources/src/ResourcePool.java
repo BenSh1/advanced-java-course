@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 public class ResourcePool {
 	private final int NUM_OF_WORKER = 10;
@@ -41,6 +41,7 @@ public class ResourcePool {
 	public synchronized void returnResource(Resource r)
 	{
 		list.add(r);
+		nextTurn++;
 		notifyAll();
 	}
 	
@@ -48,6 +49,19 @@ public class ResourcePool {
 	{
 		return numOfAllocate[id];
 	}
-
+	
+	//the purpose of this method is to wait for all Threads to do their work.
+	//this method use the variables nextTurn and max 
+	public synchronized void waitForAll() {
+		
+		while(nextTurn != max ) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	
 }
